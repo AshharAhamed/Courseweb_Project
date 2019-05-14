@@ -1,14 +1,17 @@
 'use strict';
 import React, {Component} from 'react';
+import axios from 'axios';
+import UserService from '../../services/UserService';
 
 export default class LoginContainer extends Component {
     constructor(props) {
         super(props);
+        this.userService = new UserService();
 
         this.state = {
             Username: '',
             Password: '',
-        }
+        };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -22,7 +25,15 @@ export default class LoginContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        document.location.href = "home.html"
+        axios.post('http://localhost:3001/lecturers/login', {
+            Username: this.state.Username,
+            Password: this.state.Password
+        }).then(response => {
+            console.log(response);
+            this.userService.setUserDetails(response.data.login, response.data.lecturer.Username, response.data.lecturer.AdminStatus);
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
     render() {
@@ -35,13 +46,15 @@ export default class LoginContainer extends Component {
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Username</span>
-                        <input className="input100" type="text" required={true} value={this.state.Username} onChange={this.onChange}  name="Username"/>
-                        <span className="focus-input100" ></span>
+                        <input className="input100" type="text" required={true} value={this.state.Username}
+                               onChange={this.onChange} name="Username"/>
+                        <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Password</span>
-                        <input className="input100" type="password" required={true} value={this.state.Password} onChange={this.onChange} name="Password"/>
+                        <input className="input100" type="password" required={true} value={this.state.Password}
+                               onChange={this.onChange} name="Password"/>
                         <span className="focus-input100"></span>
                     </div>
 
@@ -58,10 +71,13 @@ export default class LoginContainer extends Component {
                         </div>
                     </div>
 
-
                     <div className="row mt-5">
                         <div className="col-lg-6 mt-1">
-                            <button onClick={() => { document.location.href = "registerStudent.html";}} className="btn btn-secondary btn-block" style={{width: '250px'}}>New Student ? Register Here</button>
+                            <button onClick={() => {
+                                document.location.href = "registerStudent.html";
+                            }} className="btn btn-secondary btn-block" style={{width: '250px'}}>New Student ? Register
+                                Here
+                            </button>
                         </div>
                     </div>
 
