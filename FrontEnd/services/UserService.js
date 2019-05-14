@@ -10,13 +10,13 @@ export default class UserService {
             popup.alert({
                 content: 'Login Successfull!'
             });
+            document.location.href = "adminHome.html"
         } else {
             popup.alert({
                 content: 'Login Failed!'
             });
             localStorage.setItem('LoggedInStatus', false);
         }
-        document.location.href = "adminHome.html"
     }
 
     get isLoggedIn() {

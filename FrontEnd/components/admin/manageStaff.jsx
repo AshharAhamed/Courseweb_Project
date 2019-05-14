@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import StaffList from '../list/staffList'
 
 export default class ManageStaffContainer extends Component {
     constructor() {

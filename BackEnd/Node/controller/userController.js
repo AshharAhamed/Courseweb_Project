@@ -39,11 +39,17 @@ router.put("/:Username",(req,res)=>{
     });
 });
 
-router.delete("/:Username",(req,res)=>{
-    Lecturer.findOneAndDelete({Username:req.params.Username}).then((lecturer)=>{
+router.delete("/:StaffID",(req,res)=>{
+    console.log('Test');
+    Lecturer.findOneAndDelete({StaffID:req.params.StaffID}).then((lecturer)=>{
         res.send(lecturer);
     });
 });
 
+router.get("/",(req,res)=>{
+    Lecturer.find({}).then((lecturers)=>{
+        res.send(lecturers);
+    });
+});
 
 module.exports = router;
