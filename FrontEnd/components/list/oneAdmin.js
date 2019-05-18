@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios";
 
-class OneStaffMember extends Component {
+class OneAdminMember extends Component {
     constructor(props) {
         super(props);
         this.delete = this.delete.bind(this);
@@ -12,7 +12,7 @@ class OneStaffMember extends Component {
         };
     }
     delete() {
-        axios.delete('http://localhost:3001/lecturers/' + this.props.obj.StaffID).then(response => {
+        axios.delete('http://localhost:8080/admins/' + this.props.obj.userName).then(response => {
             console.log('Deleted')
         }).catch(err => console.log(err))
     }
@@ -20,12 +20,8 @@ class OneStaffMember extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.obj.StaffID}</td>
-                <td>{this.props.obj.FirstName}</td>
-                <td>{this.props.obj.LastName}</td>
-                <td>{this.props.obj.Email}</td>
-                <td>{this.props.obj.Faculty}</td>
-                <td>{this.props.obj.AdminStatus.toString()}</td>
+                <td>{this.props.obj.userName}</td>
+                <td>{this.props.obj.email}</td>
                 <td>
                     <button onClick={this.delete} className="btn btn-danger">Delete</button>
                 </td>
@@ -34,4 +30,4 @@ class OneStaffMember extends Component {
     }
 }
 
-export default OneStaffMember;
+export default OneAdminMember;

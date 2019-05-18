@@ -31,25 +31,55 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.put("/:Username",(req,res)=>{
-    Lecturer.findOneAndUpdate(({Username:req.params.Username}),req.body).then(()=>{
-        Lecturer.find({Username:req.params.Username}).then((lecturer)=>{
+router.put("/:Username", (req, res) => {
+    console.log('Working')
+    Lecturer.findOneAndUpdate(({Username: req.params.Username}), req.body).then(() => {
+        Lecturer.find({Username: req.params.Username}).then((lecturer) => {
             res.send(lecturer);
         });
     });
 });
 
-router.delete("/:StaffID",(req,res)=>{
-    console.log('Test');
-    Lecturer.findOneAndDelete({StaffID:req.params.StaffID}).then((lecturer)=>{
+router.delete("/:StaffID", (req, res) => {
+    Lecturer.findOneAndDelete({StaffID: req.params.StaffID}).then((lecturer) => {
         res.send(lecturer);
     });
 });
 
-router.get("/",(req,res)=>{
-    Lecturer.find({}).then((lecturers)=>{
-        res.send(lecturers);
+
+router.route('/').get(function (req, res) {
+    Lecturer.find(function (err, lecturers) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(lecturers);
+        }
     });
 });
+
+router.route('/getStaff/:StaffID').get(function (req, res) {
+    let staffID = req.params.StaffID;
+    Lecturer.find({StaffID: req.params.StaffID}).then((lecturer) => {
+        res.send(lecturer);
+    });
+});
+
+// router.route('/update/:StaffID').post(function (req, res) {
+//     Lecturer.find({StaffID: req.params.StaffID}).then((lecturer) => {
+//         if (!lecturer)
+//             res.status(404).send("data is not found");
+//         else {
+//             lecturer.FirstName = req.body.FirstName;
+//             lecturer.LastName = req.body.LastName;
+//             lecturer.Mobile = req.body.Mobile;
+//             lecturer.save().then(lecturer => {
+//                 res.json('Update complete');
+//             })
+//                 .catch(err => {
+//                     res.status(400).send("unable to update the database");
+//                 });
+//         }
+//     });
+// });
 
 module.exports = router;

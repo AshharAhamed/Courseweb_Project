@@ -1,55 +1,50 @@
 import React, {Component} from 'react'
 import axios from "axios";
-import OneStaffMember from "./oneStaffMember"
+import OneAdminMember from "./oneAdmin"
 
-export default class StaffList extends Component {
+export default class AdminList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            staffMembers: []
+            admins: []
         };
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3001/lecturers')
+        axios.get('http://localhost:8080/admins/')
             .then(response => {
-                this.setState({staffMembers: response.data});
+                this.setState({admins: response.data});
             })
             .catch(function (error) {
                 console.log(error);
             })
     }
     componentDidUpdate() {
-        axios.get('http://localhost:3001/lecturers')
+        axios.get('http://localhost:8080/admins/')
             .then(response => {
-            this.setState({ staffMembers: response.data });
-        })
+                this.setState({ admins: response.data });
+            })
             .catch(function (error) {
                 console.log(error);
             })
     }
     tabRow() {
-        return this.state.staffMembers.map(function (object, i) {
-            return <OneStaffMember obj={object} key={i}/>;
+        return this.state.admins.map(function (object, i) {
+            return <OneAdminMember obj={object} key={i}/>;
         });
     }
 
     render() {
         return (
             <div>
-                <h4>Registered Lecturers</h4>
+                <h4>Registered Admins</h4>
 
 
                 <table className="table">
                     <thead>
                     <tr>
-                        <th>Staff ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Username</th>
                         <th>Email</th>
-                        <th>Faculty</th>
-                        <th>Admin</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>

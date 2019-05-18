@@ -2,6 +2,9 @@
 import React, {Component} from 'react';
 import SISService from '../../services/SISService';
 import axios from 'axios';
+import MailService from '../../services/MailService'
+import UserService from "../../services/UserService";
+import * as mailService from "nodemailer";
 
 export default class RegisterLecturerContainer extends Component {
     constructor(props) {
@@ -17,8 +20,8 @@ export default class RegisterLecturerContainer extends Component {
             DoB: '',
             NIC: '',
             StaffID : ''
-        }
-
+        };
+        this.mailService = new MailService();
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
@@ -101,6 +104,7 @@ export default class RegisterLecturerContainer extends Component {
             'AdminStatus' : adminMode
         }).then(res =>{
             if (res.status === 200){
+                this.mailService.sendMail();
                 document.location.href = "adminHome.html"
             }
             console.log(res.data);

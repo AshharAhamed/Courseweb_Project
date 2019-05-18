@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap';
 
-export default class ManageStaffContainer extends Component {
+export default class ManageAdminContainer extends Component {
     constructor() {
         super();
     }
@@ -9,7 +9,7 @@ export default class ManageStaffContainer extends Component {
     render() {
         return (
             <div>
-                <Button color="success" onClick={() => { document.location.href = "registerLecturer.html";}}>Add Staff Member</Button>
+                <Button color="success" onClick={() => { document.location.href = "registerAdmin.html";}}>Add Admin</Button>
             </div>
         )
     }

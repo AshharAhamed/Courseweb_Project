@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "parcel manageStaff.html"
+    "start": "parcel manageStaff.html",
+    "parcel:dev": "parcel manageStaff.html",
+    "parcel:watch": "parcel manageStaff.html",
+    "parcel:build": "parcel ./WebContent/Admin/manageStaff.html"
   },
   "dependencies": {
     "alert-node": "^1.2.4",
@@ -13,9 +16,11 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
+    "nodemailer": "^6.1.1",
     "popups": "^1.1.3",
     "pug": "^2.0.3",
     "react-alert": "^5.5.0",
+    "react-router-dom": "^5.0.0",
     "react-transition-group": "^2.9.0",
     "reactstrap": "^8.0.0"
   },

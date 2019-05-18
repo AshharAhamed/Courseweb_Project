@@ -13,7 +13,7 @@ export default class AdminNavigationBarContainer extends Component {
                     <a className="nav-link" onClick={() => { document.location.href = "adminHome.html";}}>Home</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="">Manage Admins</a>
+                    <a className="nav-link" onClick={() => { document.location.href = "manageAdmin.html";}}>Manage Admins</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" onClick={() => { document.location.href = "manageStaff.html";}}>Manage Staff</a>
