@@ -2,20 +2,23 @@ const popup = require('popups');
 
 export default class UserService {
 
-    setUserDetails(LoggedInStatus, Username, AdminStatus) {
+    setUserDetails(LoggedInStatus, Username, Type) {
         if (LoggedInStatus === "Success") {
             localStorage.setItem('LoggedInStatus', true);
             localStorage.setItem('Username', Username);
-            localStorage.setItem('AdminStatus', AdminStatus);
             popup.alert({
                 content: 'Login Successfull!'
             });
-            document.location.href = "adminHome.html"
+            if (Type === 'Admin')
+                document.location.href = "adminHome.html";
+            else if (Type === 'Lecturer')
+                document.location.href = "lecturerHome.html";
         } else {
             popup.alert({
                 content: 'Login Failed!'
             });
             localStorage.setItem('LoggedInStatus', false);
+            document.location.href = "login.html";
         }
     }
 
@@ -31,18 +34,8 @@ export default class UserService {
         }
     }
 
-    get isAdmin() {
-        if (this.isLoggedIn) {
-            return (localStorage.getItem('AdminStatus') === 'true') ? true : false;
-        } else {
-            return 'Invalid';
-        }
-    }
-
     logout() {
         localStorage.removeItem('LoggedInStatus');
         localStorage.removeItem('Username');
-        localStorage.removeItem('AdminStatus');
-        window.location.href = '/';
     }
 }

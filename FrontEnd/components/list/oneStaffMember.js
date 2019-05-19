@@ -25,7 +25,6 @@ class OneStaffMember extends Component {
                 <td>{this.props.obj.LastName}</td>
                 <td>{this.props.obj.Email}</td>
                 <td>{this.props.obj.Faculty}</td>
-                <td>{this.props.obj.AdminStatus.toString()}</td>
                 <td>
                     <button onClick={this.delete} className="btn btn-danger">Delete</button>
                 </td>

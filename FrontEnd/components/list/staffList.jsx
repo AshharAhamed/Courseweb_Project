@@ -48,7 +48,6 @@ export default class StaffList extends Component {
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Faculty</th>
-                        <th>Admin</th>
                         <th>Action</th>
                     </tr>
                     </thead>

@@ -1,17 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
-import SISService from '../../services/SISService';
 import axios from 'axios';
-import MailService from '../../services/MailService'
-import UserService from "../../services/UserService";
-import * as mailService from "nodemailer";
+import EmailService from '../../services/EmailService'
+// var EmailService =  require('../../services/EmailService');
 
 export default class RegisterLecturerContainer extends Component {
     constructor(props) {
         super(props);
-
-        this.sisService = new SISService();
-
         this.state = {
             FirstName: '',
             LastName: '',
@@ -21,7 +16,6 @@ export default class RegisterLecturerContainer extends Component {
             NIC: '',
             StaffID : ''
         };
-        this.mailService = new MailService();
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
@@ -83,9 +77,6 @@ export default class RegisterLecturerContainer extends Component {
         if (this.refs.Faculty) {
             var faculty = this.refs.Faculty.value;
         }
-        if (this.refs.adminMode) {
-            var adminMode = this.refs.adminMode.value;
-        }
         if (this.refs.Gender) {
             var Gender = this.refs.Gender.value;
         }
@@ -101,10 +92,10 @@ export default class RegisterLecturerContainer extends Component {
             'Password' : this.state.NIC,
             'Faculty' : faculty,
             'Gender' : Gender,
-            'AdminStatus' : adminMode
         }).then(res =>{
             if (res.status === 200){
-                this.mailService.sendMail();
+                let myEmailService = new EmailService();
+                myEmailService.sendEmail(res.data.Email ,res.data.FirstName, res.data.Username, res.data.Password);
                 document.location.href = "adminHome.html"
             }
             console.log(res.data);
@@ -160,17 +151,6 @@ export default class RegisterLecturerContainer extends Component {
                     <div className="wrap-input100 validate-input" data-validate="Staff ID is required">
                         <span className="label-input100">Staff ID</span>
                         <input className="input100" type="text" required={true} name="StaffID" value={this.state.StaffID} onChange={this.onChange} placeholder="ST12345678"></input>
-                        <span className="focus-input100"></span>
-                    </div>
-
-                    <div className="wrap-input100 input100-select">
-                        <span className="label-input100">Select User Type</span>
-                        <div>
-                            <select className="selection-2" name="adminMode" ref="adminMode">
-                                <option value="1">Admin</option>
-                                <option value="0">Non Admin</option>
-                            </select>
-                        </div>
                         <span className="focus-input100"></span>
                     </div>
 

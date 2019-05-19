@@ -5,6 +5,7 @@ const cors = require('cors');
 const databaseConfig = require('./configuration/config');
 const app = express();
 const users = require('./controller/userController');
+const mail = require('./controller/mailController');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,6 +20,8 @@ mongoose.connection.on("error", err => {
 });
 
 app.use('/lecturers' , users);
+app.use('/email' , mail);
+
 
 app.listen(3001, err => {
     if (err) {

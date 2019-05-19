@@ -25,16 +25,31 @@ export default class LoginContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        axios.post('http://localhost:3001/lecturers/login', {
-            Username: this.state.Username,
-            Password: this.state.Password
+        axios.post('http://localhost:8080/admins/login', {
+            userName: this.state.Username,
+            password: this.state.Password
         }).then(response => {
             console.log(response);
-            this.userService.setUserDetails(response.data.login, response.data.lecturer.Username, response.data.lecturer.AdminStatus);
+            if(response.data.login === 'Success')
+                this.userService.setUserDetails(response.data.login, response.data.Username, response.data.Type);
+            else {
+                axios.post('http://localhost:3001/lecturers/login', {
+                    Username: this.state.Username,
+                    Password: this.state.Password
+                }).then( response => {
+                    console.log(response);
+                    if(response.data.login === 'Success')
+                        this.userService.setUserDetails(response.data.login, response.data.Username, response.data.Type);
+                }).catch( error =>{
+                    console.log(error);
+                })
+            }
         }).catch(error => {
             console.log(error);
         });
     }
+
+
 
     render() {
         return <div className="container-contact100">
@@ -44,7 +59,7 @@ export default class LoginContainer extends Component {
 					Log In!
 				</span>
 
-                    <div className="wrap-input100 validate-input" data-validate="Name is required">
+                        <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Username</span>
                         <input className="input100" type="text" required={true} value={this.state.Username}
                                onChange={this.onChange} name="Username"/>

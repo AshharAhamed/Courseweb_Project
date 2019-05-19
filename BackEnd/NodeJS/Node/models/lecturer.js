@@ -17,10 +17,6 @@ const LecturerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    AdminStatus: {
-        type: Boolean,
-        default: 0
-    },
     Faculty: String
 });
 const Lecturer = mongoose.model('Lecturer', LecturerSchema);
