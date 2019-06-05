@@ -8,13 +8,9 @@ export default class FooterContainer extends Component {
     }
     render() {
         return <div>
-            <footer className="footer-distributed">
-
+            <div className="footer-distributed">
                 <div className="footer-left">
-
                     <h3>Company<span>logo</span></h3>
-
-
                     <p className="footer-company-name">Woodcreek Hills University &copy; 2019</p>
                 </div>
 
@@ -52,7 +48,7 @@ export default class FooterContainer extends Component {
                         <a href="#"><i className="fa fa-github"></i></a>
                     </div>
                 </div>
-            </footer>
+            </div>
         </div>;
     }
 }

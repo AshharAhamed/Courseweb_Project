@@ -28,9 +28,8 @@ export default class StaffList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="tableClass">
                 <h4>Registered Lecturers</h4>
-
                 <table className="table">
                     <thead>
                     <tr>

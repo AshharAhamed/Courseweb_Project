@@ -8,4 +8,4 @@ import AdminNavigationBarContainer from "./AdminNavigationBarContainer";
 import FooterContainer from './footerContainer'
 
 render(<AdminNavigationBarContainer/>, document.getElementById('navigationBar'));
-render(<FooterContainer/>, document.getElementById('footer'));
+render(<FooterContainer/>, document.getElementById('pageFooter'));

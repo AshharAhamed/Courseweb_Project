@@ -45,7 +45,3 @@ div.absolute {
 	height: 1000px;
 	overflow-y: scroll;
 }
-
-.tableClass{
-	overflow-x:auto;
-}
