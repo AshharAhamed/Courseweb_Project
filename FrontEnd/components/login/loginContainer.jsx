@@ -33,7 +33,7 @@ export default class LoginContainer extends Component {
             if(response.data.login === 'Success')
                 this.userService.setUserDetails(response.data.login, response.data.Username, response.data.Type);
             else {
-                axios.post('http://localhost:3001/lecturers/login', {
+                axios.post('http://localhost:3000/lecturer/login', {
                     Username: this.state.Username,
                     Password: this.state.Password
                 }).then( response => {

@@ -19,15 +19,7 @@ export default class AdminList extends Component {
                 console.log(error);
             })
     }
-    componentDidUpdate() {
-        axios.get('http://localhost:8080/admins/')
-            .then(response => {
-                this.setState({ admins: response.data });
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
+
     tabRow() {
         return this.state.admins.map(function (object, i) {
             return <OneAdminMember obj={object} key={i}/>;
@@ -36,15 +28,14 @@ export default class AdminList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="tableClass">
                 <h4>Registered Admins</h4>
-
-
                 <table className="table">
                     <thead>
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>

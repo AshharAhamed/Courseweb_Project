@@ -1,6 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import axios from 'axios';
+import EmailService from "../../services/EmailService";
 
 export default class RegisterAdminContainer extends Component {
     constructor(props) {
@@ -18,40 +19,9 @@ export default class RegisterAdminContainer extends Component {
     }
 
     onChange(e) {
-
         this.setState({
             [e.target.name]: e.target.value
         });
-
-        setTimeout(() => {
-            let isValid = true;
-
-            for (let property in this.state) {
-
-                if (this.state.hasOwnProperty(property)) {
-
-                    if (property === 'isValid' || property === 'errorMessage')
-                        continue;
-
-                    let val = this.state[property];
-
-                    if (val === null || val === undefined || val === '') {
-                        isValid = false;
-                        break;
-                    }
-                }
-            }
-
-            if (this.state.errorMessage) {
-                this.setState({
-                    isValid: isValid,
-                    errorMessage: null
-                });
-            } else {
-                this.setState({isValid: isValid});
-            }
-
-        }, 100);
     }
 
     clearForm(e) {
@@ -71,7 +41,10 @@ export default class RegisterAdminContainer extends Component {
             'email': this.state.Email
 
         }).then(res => {
-            console.log(res.data);
+                let myEmailService = new EmailService();
+                myEmailService.sendEmailToAdmin(this.state.Email, this.state.Username);
+                alert('Admin has been Registered Successfully!');
+                document.location.href = "adminHome.html";
         })
     }
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import axios from "axios";
 
 class OneAdminMember extends Component {
@@ -11,10 +11,14 @@ class OneAdminMember extends Component {
             edit: false
         };
     }
+
     delete() {
         axios.delete('http://localhost:8080/admins/' + this.props.obj.userName).then(response => {
-            console.log('Deleted')
-        }).catch(err => console.log(err))
+            alert('Admin of Username ' + this.props.obj.userName + ' Successfully Deleted!');
+            window.location.reload();
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     render() {

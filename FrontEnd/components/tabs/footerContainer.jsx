@@ -32,7 +32,7 @@ export default class FooterContainer extends Component {
 
                     <div>
                         <i className="fa fa-envelope"></i>
-                        <p><a href="mailto:support@company.com">wookcread.uni@edu.com</a></p>
+                        <p><a href="mailto:woodcreakuniversity@gmail.com">woodcreakuniversity@gmail.com</a></p>
                     </div>
 
                 </div>

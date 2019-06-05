@@ -12,8 +12,9 @@ class OneStaffMember extends Component {
         };
     }
     delete() {
-        axios.delete('http://localhost:3001/lecturers/' + this.props.obj.StaffID).then(response => {
-            console.log('Deleted')
+        axios.delete('http://localhost:3000/lecturer/' + this.props.obj.StaffID).then(response => {
+            alert(response.data.message);
+            window.location.reload();
         }).catch(err => console.log(err))
     }
 

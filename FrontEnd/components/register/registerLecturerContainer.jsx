@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import EmailService from '../../services/EmailService'
-// var EmailService =  require('../../services/EmailService');
+import LecturerRegistrationValidation from '../../Validation/lecturer/registration';
 
 export default class RegisterLecturerContainer extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class RegisterLecturerContainer extends Component {
             Mobile: '',
             DoB: '',
             NIC: '',
-            StaffID : ''
+            StaffID: ''
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -22,45 +22,12 @@ export default class RegisterLecturerContainer extends Component {
     }
 
     onChange(e) {
-
         this.setState({
             [e.target.name]: e.target.value
         });
-
-        setTimeout(() => {
-            let isValid = true;
-
-            for (let property in this.state) {
-
-                if (this.state.hasOwnProperty(property)) {
-
-                    if (property === 'isValid' || property === 'errorMessage')
-                        continue;
-
-                    let val = this.state[property];
-
-                    if (val === null || val === undefined || val === '') {
-                        isValid = false;
-                        break;
-                    }
-                }
-            }
-
-            if (this.state.errorMessage) {
-                this.setState({
-                    isValid: isValid,
-                    errorMessage: null
-                });
-            }
-            else {
-                this.setState({ isValid: isValid });
-            }
-
-        }, 100);
     }
 
     clearForm(e) {
-
         this.setState({
             FirstName: '',
             LastName: '',
@@ -68,7 +35,7 @@ export default class RegisterLecturerContainer extends Component {
             Mobile: '',
             DoB: '',
             NIC: '',
-            StaffID : ''
+            StaffID: ''
         });
     }
 
@@ -80,32 +47,38 @@ export default class RegisterLecturerContainer extends Component {
         if (this.refs.Gender) {
             var Gender = this.refs.Gender.value;
         }
-        axios.post('http://localhost:3001/lecturers/addLecturer', {
-            'FirstName': this.state.FirstName,
-            'LastName': this.state.LastName,
-            'Email': this.state.Email,
-            'Mobile' : this.state.Mobile,
-            'DoB' : this.state.DoB,
-            'NIC' : this.state.NIC,
-            'StaffID' : this.state.StaffID,
-            'Username' : this.state.StaffID,
-            'Password' : this.state.NIC,
-            'Faculty' : faculty,
-            'Gender' : Gender,
-        }).then(res =>{
-            if (res.status === 200){
-                let myEmailService = new EmailService();
-                myEmailService.sendEmail(res.data.Email ,res.data.FirstName, res.data.Username, res.data.Password);
-                document.location.href = "adminHome.html"
-            }
-            console.log(res.data);
-        })
+        let myLecturerRegistrationValidation = new LecturerRegistrationValidation(this.state.FirstName, this.state.LastName, this.state.Mobile, this.state.DoB, this.state.NIC, this.state.StaffID);
+        if (myLecturerRegistrationValidation.validate) {
+            axios.post('http://localhost:3000/lecturer/', {
+                'FirstName': this.state.FirstName,
+                'LastName': this.state.LastName,
+                'Email': this.state.Email,
+                'Mobile': this.state.Mobile,
+                'DoB': this.state.DoB,
+                'NIC': this.state.NIC,
+                'StaffID': this.state.StaffID,
+                'Username': this.state.StaffID,
+                'Password': this.state.NIC,
+                'Faculty': faculty,
+                'Gender': Gender,
+            }).then(res => {
+                if (res.status === 200) {
+                    let myEmailService = new EmailService();
+                    myEmailService.sendEmail(this.state.Email, this.state.FirstName, this.state.StaffID, this.state.NIC);
+                    alert(res.data.message);
+                    document.location.href = "adminHome.html"
+                }
+                console.log(res.data);
+            })
+        }
     }
 
     render() {
         return <div className="container-contact100">
             <div className="wrap-contact100">
-                <span className="backArrow" onClick={() => { document.location.href = "manageStaff.html";}}>&#8592; Back</span>
+                <span className="backArrow" onClick={() => {
+                    document.location.href = "manageStaff.html";
+                }}>&#8592; Back</span>
 
                 <form className="contact100-form validate-form" onSubmit={this.onSubmit}>
 				<span className="contact100-form-title">
@@ -114,43 +87,50 @@ export default class RegisterLecturerContainer extends Component {
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">First Name</span>
-                        <input className="input100" type="text" required={true} value={this.state.FirstName} onChange={this.onChange}  name="FirstName" placeholder="Daniel"/>
-                        <span className="focus-input100" ></span>
+                        <input className="input100" type="text" value={this.state.FirstName} onChange={this.onChange}
+                               name="FirstName" placeholder="Daniel" required={true}/>
+                        <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Last Name</span>
-                        <input className="input100" type="text" required={true} value={this.state.LastName} onChange={this.onChange} name="LastName" placeholder="Asplund"/>
+                        <input className="input100" type="text" value={this.state.LastName} onChange={this.onChange}
+                               name="LastName" placeholder="Asplund" required={true}/>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Email</span>
-                        <input className="input100" type="email" required={true} value={this.state.Email} onChange={this.onChange} name="Email" placeholder="danielasplund@gmail.com"></input>
+                        <input className="input100" type="email" value={this.state.Email} onChange={this.onChange}
+                               name="Email" placeholder="danielasplund@gmail.com" required={true}></input>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Mobile No</span>
-                        <input className="input100" type="number" required={true} value={this.state.Mobile} onChange={this.onChange} name="Mobile" placeholder="0711234567"></input>
+                        <input className="input100" type="number" value={this.state.Mobile} onChange={this.onChange}
+                               name="Mobile" placeholder="0711234567" required={true}></input>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Date of Birth</span>
-                        <input className="input100" type="date" required={true} name="DoB" value={this.state.DoB} onChange={this.onChange} placeholder="Enter your Date of Birth"></input>
+                        <input className="input100" type="date" name="DoB" value={this.state.DoB}
+                               onChange={this.onChange} placeholder="Enter your Date of Birth" required={true}></input>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">NIC</span>
-                        <input className="input100" type="text" required={true} name="NIC" value={this.state.NIC} onChange={this.onChange} placeholder="971234567V"></input>
+                        <input className="input100" type="text" name="NIC" value={this.state.NIC}
+                               onChange={this.onChange} placeholder="971234567V" required={true}></input>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Staff ID is required">
                         <span className="label-input100">Staff ID</span>
-                        <input className="input100" type="text" required={true} name="StaffID" value={this.state.StaffID} onChange={this.onChange} placeholder="ST12345678"></input>
+                        <input className="input100" type="text" name="StaffID" value={this.state.StaffID}
+                               onChange={this.onChange} placeholder="ST12345678" required={true}></input>
                         <span className="focus-input100"></span>
                     </div>
 
@@ -200,7 +180,7 @@ export default class RegisterLecturerContainer extends Component {
                             this.state.errorMessage ?
                                 (
                                     <div className="col-lg-12 mt-3">
-                                        <DangerTip title="Failed!" description={this.state.errorMessage} />
+                                        <DangerTip title="Failed!" description={this.state.errorMessage}/>
                                     </div>
                                 ) : null
                         }

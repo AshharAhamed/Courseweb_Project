@@ -8,8 +8,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +28,8 @@ public class AdminController {
 	@Autowired
 	private AdminRepository repository;
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+//	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@PostMapping("/")
 	public String createAdmin(@Valid @RequestBody Admin admin) {
 		if(repository.findByuserName(admin.getUserName()) == null) {
 			repository.save(admin);
@@ -70,9 +73,15 @@ public class AdminController {
 		repository.save(oldAdmin);
 	}
 
-	@RequestMapping(value = "/{Username}", method = RequestMethod.DELETE)
-	public void deleteAdmin(@PathVariable String Username) {
-		repository.delete(repository.findByuserName(Username));
+//	@RequestMapping(value = "/{Username}", method = RequestMethod.DELETE)
+	@DeleteMapping("/{Username}")
+	public String deleteAdmin(@PathVariable String Username) {
+		try {
+			repository.delete(repository.findByuserName(Username));
+			return("Admin of Username " + Username + " Successfully Deleted!");
+		}catch(Exception e){
+			return(e.toString());
+		}
 	}
 
 }

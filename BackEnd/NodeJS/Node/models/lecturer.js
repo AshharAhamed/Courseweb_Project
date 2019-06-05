@@ -1,5 +1,5 @@
-'use strict';
 const mongoose = require('mongoose');
+
 const LecturerSchema = new mongoose.Schema({
     FirstName: String,
     LastName: String,

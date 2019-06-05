@@ -11,7 +11,7 @@ export default class StaffList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3001/lecturers')
+        axios.get('http://localhost:3000/lecturer')
             .then(response => {
                 this.setState({staffMembers: response.data});
             })
@@ -19,15 +19,7 @@ export default class StaffList extends Component {
                 console.log(error);
             })
     }
-    componentDidUpdate() {
-        axios.get('http://localhost:3001/lecturers')
-            .then(response => {
-            this.setState({ staffMembers: response.data });
-        })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
+
     tabRow() {
         return this.state.staffMembers.map(function (object, i) {
             return <OneStaffMember obj={object} key={i}/>;
@@ -38,7 +30,6 @@ export default class StaffList extends Component {
         return (
             <div>
                 <h4>Registered Lecturers</h4>
-
 
                 <table className="table">
                     <thead>
