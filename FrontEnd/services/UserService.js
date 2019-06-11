@@ -2,21 +2,25 @@ const popup = require('popups');
 
 export default class UserService {
 
+    setTokenData(tokenData) {
+        localStorage.setItem('tokenData', tokenData);
+    }
+
+    get tokenData() {
+        return localStorage.getItem('tokenData');
+    }
+
     setUserDetails(LoggedInStatus, Username, Type) {
         if (LoggedInStatus === "Success") {
             localStorage.setItem('LoggedInStatus', true);
             localStorage.setItem('Username', Username);
-            popup.alert({
-                content: 'Login Successfull!'
-            });
+            alert('Login Successful !');
             if (Type === 'Admin')
                 document.location.href = "adminHome.html";
             else if (Type === 'Lecturer')
                 document.location.href = "lecturerHome.html";
         } else {
-            popup.alert({
-                content: 'Login Failed!'
-            });
+            alert('Invalid Username or Password !');
             localStorage.setItem('LoggedInStatus', false);
             document.location.href = "login.html";
         }
@@ -37,5 +41,6 @@ export default class UserService {
     logout() {
         localStorage.removeItem('LoggedInStatus');
         localStorage.removeItem('Username');
+        localStorage.removeItem('tokenData');
     }
 }

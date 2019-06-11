@@ -1,21 +1,26 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import axios from "axios";
+import SISService from '../../services/SISService'
 
 class OneStaffMember extends Component {
     constructor(props) {
         super(props);
-        this.delete = this.delete.bind(this);
         this.state = {
             user: {},
             type: "",
             edit: false
         };
+        this.SISService = new SISService();
+        this.delete = this.delete.bind(this);
     }
+
     delete() {
-        axios.delete('http://localhost:3000/lecturer/' + this.props.obj.StaffID).then(response => {
+        this.SISService.deleteStaffMember(this.props.obj.StaffID).then(response => {
             alert(response.data.message);
             window.location.reload();
-        }).catch(err => console.log(err))
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     render() {

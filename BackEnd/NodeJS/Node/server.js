@@ -8,6 +8,7 @@ const app = express();
 //Import Routing
 const Lecturer = require('./routing/LecturerRouting');
 const Mail = require('./routing/MailRouting');
+const Login = require('./routing/Login');
 
 //Import DatabaseConfigurations
 const databaseConfig = require('./configuration/config');
@@ -17,9 +18,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //App Routing
-// app.use('/api', require('./auth'));
-app.use('/lecturer', Lecturer);
-app.use('/email', Mail);
+app.use('/api', require('./authentication/TokenAuthentication'));
+app.use('/api/lecturer', Lecturer);
+app.use('/api/email', Mail);
+
+// app.use('/lecturer', Lecturer);
+// app.use('/email', Mail);
+app.use('/login', Login);
+
 
 //Server Connection
 app.listen(databaseConfig.app.port, err => {

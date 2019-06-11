@@ -1,17 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const LecturerController = require('../controller/LecturerController');
+const jwt = require('jsonwebtoken');
+const config = require('../authentication/config');
 
 router.post('/', (req, res) => {
     LecturerController.insert(req.body).then((data) => {
-        res.json(data)
-    }).catch(err => {
-        res.json(err);
-    })
-});
-
-router.post('/login', (req, res) => {
-    LecturerController.login(req.body.Username, req.body.Password).then((data) => {
         res.json(data)
     }).catch(err => {
         res.json(err);

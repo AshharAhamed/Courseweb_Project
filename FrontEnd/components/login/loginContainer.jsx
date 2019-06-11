@@ -1,18 +1,15 @@
 'use strict';
 import React, {Component} from 'react';
-import axios from 'axios';
-import UserService from '../../services/UserService';
+import SISService from '../../services/SISService'
 
 export default class LoginContainer extends Component {
     constructor(props) {
         super(props);
-        this.userService = new UserService();
-
+        this.SISService = new SISService();
         this.state = {
             Username: '',
             Password: '',
         };
-
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -25,31 +22,15 @@ export default class LoginContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        axios.post('http://localhost:8080/admins/login', {
-            userName: this.state.Username,
-            password: this.state.Password
-        }).then(response => {
-            console.log(response);
-            if(response.data.login === 'Success')
-                this.userService.setUserDetails(response.data.login, response.data.Username, response.data.Type);
-            else {
-                axios.post('http://localhost:3000/lecturer/login', {
-                    Username: this.state.Username,
-                    Password: this.state.Password
-                }).then( response => {
-                    console.log(response);
-                    if(response.data.login === 'Success')
-                        this.userService.setUserDetails(response.data.login, response.data.Username, response.data.Type);
-                }).catch( error =>{
-                    console.log(error);
-                })
-            }
-        }).catch(error => {
-            console.log(error);
-        });
+        const loginRequest = {
+            Username: this.state.Username,
+            Password: this.state.Password
+        };
+        this.SISService.logUser(loginRequest).then(() => {
+        }).catch(err => {
+            console.log(err)
+        })
     }
-
-
 
     render() {
         return <div className="container-contact100">
@@ -59,7 +40,7 @@ export default class LoginContainer extends Component {
 					Log In!
 				</span>
 
-                        <div className="wrap-input100 validate-input" data-validate="Name is required">
+                    <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Username</span>
                         <input className="input100" type="text" required={true} value={this.state.Username}
                                onChange={this.onChange} name="Username"/>

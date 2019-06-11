@@ -1,8 +1,5 @@
-const popup = require('popups');
-
 export default class LecturerRegistrationValidation {
-
-    constructor(FirstName, LastName, MobileNo, DoB, NIC, StaffID, ){
+    constructor(FirstName, LastName, MobileNo, DoB, NIC, StaffID ){
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.MobileNo = MobileNo;
@@ -58,7 +55,4 @@ export default class LecturerRegistrationValidation {
             return true;
         }
     }
-
-
-
 }

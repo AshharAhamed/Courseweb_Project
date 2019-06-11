@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import EmailService from "../../services/EmailService";
+import AdminRegistrationValidation from '../../validation/admin/registration';
 
 export default class RegisterAdminContainer extends Component {
     constructor(props) {
@@ -35,17 +36,22 @@ export default class RegisterAdminContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        axios.post('http://localhost:8080/admins/', {
-            'userName': this.state.Username,
-            'password': this.state.Password,
-            'email': this.state.Email
-
-        }).then(res => {
-                let myEmailService = new EmailService();
-                myEmailService.sendEmailToAdmin(this.state.Email, this.state.Username);
-                alert('Admin has been Registered Successfully!');
-                document.location.href = "adminHome.html";
-        })
+        let myAdminRegistrationValidation = new AdminRegistrationValidation(this.state.Username, this.state.Password, this.state.ConfirmPassword);
+        if (myAdminRegistrationValidation.validate) {
+            axios.post('http://localhost:8080/admins/', {
+                'userName': this.state.Username,
+                'password': this.state.Password,
+                'email': this.state.Email
+            }).then(response => {
+                alert(response.data.message);
+                if (response.data.status === "200") {
+                    alert(response.data.status);
+                    let myEmailService = new EmailService();
+                    myEmailService.sendEmailToAdmin(this.state.Email, this.state.Username);
+                    document.location.href = "adminHome.html";
+                }
+            })
+        }
     }
 
     render() {
@@ -70,20 +76,22 @@ export default class RegisterAdminContainer extends Component {
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Username</span>
                         <input className="input100" type="text" required={true} value={this.state.Username}
-                               onChange={this.onChange} name="Username" ></input>
+                               onChange={this.onChange} name="Username"></input>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Password</span>
-                        <input className="input100" type="password" required={true} name="Password" value={this.state.Password}
+                        <input className="input100" type="password" required={true} name="Password"
+                               value={this.state.Password}
                                onChange={this.onChange}></input>
                         <span className="focus-input100"></span>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Confirm Password</span>
-                        <input className="input100" type="password" required={true} name="ConfirmPassword" value={this.state.ConfirmPassword}
+                        <input className="input100" type="password" required={true} name="ConfirmPassword"
+                               value={this.state.ConfirmPassword}
                                onChange={this.onChange}></input>
                         <span className="focus-input100"></span>
                     </div>

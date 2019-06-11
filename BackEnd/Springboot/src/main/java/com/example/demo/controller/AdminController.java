@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Admin;
 import com.example.demo.repository.AdminRepository;
-@CrossOrigin(origins = "http://localhost:1234")
 
+@CrossOrigin(origins = { "http://localhost:1234", "http://localhost:3000" })
 @RestController
 @RequestMapping("/admins")
 public class AdminController {
@@ -28,38 +28,41 @@ public class AdminController {
 	@Autowired
 	private AdminRepository repository;
 
-//	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@PostMapping("/")
-	public String createAdmin(@Valid @RequestBody Admin admin) {
-		if(repository.findByuserName(admin.getUserName()) == null) {
+	public Map<String, String> createAdmin(@Valid @RequestBody Admin admin) {
+		HashMap<String, String> map = new HashMap<>();
+		if (repository.findByuserName(admin.getUserName()) == null) {
 			repository.save(admin);
-			return "Sucess";
-		}else
-			return "Fail";
+			map.put("status", "200");
+			map.put("message", "Admin Registered Succesfully !");
+		} else {
+			map.put("status", "500");
+			map.put("message", "Username is Already Taken !");
+		}
+		return map;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping("/")
 	public List<Admin> getAllAdmins() {
 		return repository.findAll();
 	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	@GetMapping
+	
+	@PostMapping("/login")
 	public Map<String, String> loginAdmin(@Valid @RequestBody Admin admin) {
 		HashMap<String, String> map = new HashMap<>();
 		Admin searchAdmin = repository.findByuserName(admin.getUserName());
-		if(searchAdmin != null && searchAdmin.getPassword().toString().equals(admin.getPassword().toString())) {
+		if (searchAdmin != null && searchAdmin.getPassword().toString().equals(admin.getPassword().toString())) {
 			map.put("login", "Success");
 			map.put("Username", searchAdmin.getUserName());
 			map.put("Type", "Admin");
-		}else {
+		} else {
 			map.put("login", "Fail");
 			map.put("Username", "");
 			map.put("Type", "");
 		}
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/{Username}", method = RequestMethod.GET)
 	public Admin getUsername(@PathVariable("Username") String Username) {
 		return repository.findByuserName(Username);
@@ -73,14 +76,13 @@ public class AdminController {
 		repository.save(oldAdmin);
 	}
 
-//	@RequestMapping(value = "/{Username}", method = RequestMethod.DELETE)
 	@DeleteMapping("/{Username}")
 	public String deleteAdmin(@PathVariable String Username) {
 		try {
 			repository.delete(repository.findByuserName(Username));
-			return("Admin of Username " + Username + " Successfully Deleted!");
-		}catch(Exception e){
-			return(e.toString());
+			return ("Admin of Username " + Username + " Successfully Deleted!");
+		} catch (Exception e) {
+			return (e.toString());
 		}
 	}
 

@@ -1,41 +1,24 @@
 const LecturerModel = require('../models/Lecturer');
+const jwt = require('jsonwebtoken');
+const config = require('../authentication/config');
+const md5 = require('md5');
 
 const LecturerController = function () {
     this.insert = (data) => {
         return new Promise((resolve, reject) => {
-            LecturerModel.findOne({Username: data.Username}).then(lecturer => {
+            LecturerModel.findOne({StaffID: data.StaffID}).then(lecturer => {
                 if (lecturer === null) {
                     const newLecturer = new LecturerModel(data);
+                    newLecturer.Password = md5(data.Password);
                     newLecturer.save().then(lecturer => {
-                        resolve({status : 200, message : 'Staff Member Successfully Added!'});
+                        resolve({status: 200, message: 'Staff Member Successfully Added!'});
                     }).catch(err => {
                         reject({status: 500, message: err})
                     });
-                } else
-                    resolve({status: 500, message: 'Username is already being used!'})
-            })
-        })
-    };
-
-    this.login = (username, password) => {
-        return new Promise((resolve, reject) => {
-            LecturerModel.findOne({Username: username}).then(lecturer => {
-                if (lecturer != null && lecturer.Password.toString() === password) {
-                    resolve({
-                        login: 'Success',
-                        Username: lecturer.Username,
-                        Type: 'Lecturer'
-                    });
                 } else {
-                    reject({
-                        login: 'Fail',
-                        Username: '',
-                        Type: ''
-                    });
+                    reject({status: 500, message: 'Staff ID is already being used!'})
                 }
-            }).catch(err => {
-                reject({status: 500, err});
-            });
+            })
         })
     };
 

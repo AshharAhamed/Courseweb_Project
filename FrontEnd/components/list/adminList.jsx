@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import axios from "axios";
 import OneAdminMember from "./oneAdmin"
+import SISService from '../../services/SISService'
 
 export default class AdminList extends Component {
     constructor(props) {
@@ -8,16 +8,15 @@ export default class AdminList extends Component {
         this.state = {
             admins: []
         };
+        this.SISService = new SISService();
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/admins/')
-            .then(response => {
-                this.setState({admins: response.data});
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        this.SISService.getAdminList().then(response => {
+            this.setState({admins: response.data});
+        }).catch(function (error) {
+            console.log(error);
+        })
     }
 
     tabRow() {

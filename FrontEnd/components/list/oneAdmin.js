@@ -1,20 +1,21 @@
 import React, {Component} from 'react'
-import axios from "axios";
+import SISService from '../../services/SISService'
 
 class OneAdminMember extends Component {
     constructor(props) {
         super(props);
-        this.delete = this.delete.bind(this);
         this.state = {
             user: {},
             type: "",
             edit: false
         };
+        this.SISService = new SISService();
+        this.delete = this.delete.bind(this);
     }
 
     delete() {
-        axios.delete('http://localhost:8080/admins/' + this.props.obj.userName).then(response => {
-            alert('Admin of Username ' + this.props.obj.userName + ' Successfully Deleted!');
+        this.SISService.deleteAdminMember(this.props.obj.userName).then(response => {
+            alert(response.data);
             window.location.reload();
         }).catch(err => {
             console.log(err)

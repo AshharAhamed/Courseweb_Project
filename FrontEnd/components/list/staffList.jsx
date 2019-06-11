@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import axios from "axios";
 import OneStaffMember from "./oneStaffMember"
+import SISService from '../../services/SISService'
 
 export default class StaffList extends Component {
     constructor(props) {
@@ -8,16 +8,15 @@ export default class StaffList extends Component {
         this.state = {
             staffMembers: []
         };
+        this.SISService = new SISService();
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/lecturer')
-            .then(response => {
-                this.setState({staffMembers: response.data});
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        this.SISService.getStaffList().then(response => {
+            this.setState({staffMembers: response.data});
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     tabRow() {

@@ -27,6 +27,9 @@ export default class LecturerNavigationBarContainer extends Component {
                 <li className="nav-item">
                     <a className="nav-link"  onClick={() => { document.location.href = "lecturerProfile.html";}}>My Profile</a>
                 </li>
+                <li className="nav-item">
+                    <a className="nav-link"  onClick={() => { document.location.href = "lecturerChangePassword.html";}}>Change Password</a>
+                </li>
             </ul>
             <div className="form-inline my-2 my-lg-0">
                 <ul className="navbar-nav mr-auto">

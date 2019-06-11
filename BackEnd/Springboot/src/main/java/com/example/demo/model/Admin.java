@@ -15,7 +15,6 @@ public class Admin {
 		this.userName = userName;
 		this.password = password;
 		this.email    = email;
-		
 	}
 
 	public String getId() {
@@ -49,7 +48,4 @@ public class Admin {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
-	
 }

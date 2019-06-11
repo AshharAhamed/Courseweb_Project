@@ -1,8 +1,8 @@
 'use strict';
 import React, {Component} from 'react';
-import axios from 'axios';
 import EmailService from '../../services/EmailService'
-import LecturerRegistrationValidation from '../../Validation/lecturer/registration';
+import LecturerRegistrationValidation from '../../validation/lecturer/registration';
+import SISService from '../../services/SISService'
 
 export default class RegisterLecturerContainer extends Component {
     constructor(props) {
@@ -16,6 +16,7 @@ export default class RegisterLecturerContainer extends Component {
             NIC: '',
             StaffID: ''
         };
+        this.SISService = new SISService();
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
@@ -49,7 +50,7 @@ export default class RegisterLecturerContainer extends Component {
         }
         let myLecturerRegistrationValidation = new LecturerRegistrationValidation(this.state.FirstName, this.state.LastName, this.state.Mobile, this.state.DoB, this.state.NIC, this.state.StaffID);
         if (myLecturerRegistrationValidation.validate) {
-            axios.post('http://localhost:3000/lecturer/', {
+            this.SISService.addStaffMember({
                 'FirstName': this.state.FirstName,
                 'LastName': this.state.LastName,
                 'Email': this.state.Email,
@@ -60,16 +61,15 @@ export default class RegisterLecturerContainer extends Component {
                 'Username': this.state.StaffID,
                 'Password': this.state.NIC,
                 'Faculty': faculty,
-                'Gender': Gender,
-            }).then(res => {
-                if (res.status === 200) {
+                'Gender': Gender
+            }).then(response => {
+                alert(response.data.message);
+                if (response.data.status === 200) {
                     let myEmailService = new EmailService();
                     myEmailService.sendEmail(this.state.Email, this.state.FirstName, this.state.StaffID, this.state.NIC);
-                    alert(res.data.message);
-                    document.location.href = "adminHome.html"
+                    document.location.href = "manageStaff.html"
                 }
-                console.log(res.data);
-            })
+            });
         }
     }
 
@@ -163,7 +163,7 @@ export default class RegisterLecturerContainer extends Component {
                             <button className="contact100-form-btn">
 							<span>
                                 Register
-                            <input type="submit" disabled={!this.state.isValid} value=""/>
+                            <input type="submit" value=""/>
 								<i className="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
 							</span>
                             </button>
@@ -171,19 +171,9 @@ export default class RegisterLecturerContainer extends Component {
                     </div>
 
                     <div className="row mt-5">
-
                         <div className="col-lg-6 mt-1">
                             <button className="btn btn-secondary btn-block" onClick={this.clearForm}>Clear</button>
                         </div>
-
-                        {
-                            this.state.errorMessage ?
-                                (
-                                    <div className="col-lg-12 mt-3">
-                                        <DangerTip title="Failed!" description={this.state.errorMessage}/>
-                                    </div>
-                                ) : null
-                        }
                     </div>
                 </form>
             </div>
