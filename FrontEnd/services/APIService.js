@@ -10,7 +10,7 @@ export default class APIService {
         const tokenData = this.userService.tokenData;
 
         this.messageHeaders = {
-                "access-token": tokenData
+            "access-token": tokenData
         };
     }
 
@@ -22,6 +22,11 @@ export default class APIService {
             else if (type === "Node")
                 baseURL = this.baseUrl;
             axios.post(baseURL + url, data, {headers: this.messageHeaders}).then(response => {
+                if (response.data.message === "TokenExpiredError") {
+                    alert("Session Timeout Please Login Again !");
+                    this.userService.logout();
+                    document.location.href = "login.html";
+                }
                 resolve(response);
             }).catch(err => {
                 resolve(err);
@@ -37,6 +42,31 @@ export default class APIService {
             else if (type === "Node")
                 baseURL = this.baseUrl;
             axios.put(baseURL + url, data, {headers: this.messageHeaders}).then(response => {
+                if (response.data.message === "TokenExpiredError") {
+                    alert("Session Timeout Please Login Again !");
+                    this.userService.logout();
+                    document.location.href = "login.html";
+                }
+                resolve(response);
+            }).catch(err => {
+                resolve(err);
+            });
+        });
+    }
+
+    patch(url, data, type) {
+        return new Promise((resolve, reject) => {
+            var baseURL = "";
+            if (type === "SpringBoot")
+                baseURL = this.baseSpringBootUrl;
+            else if (type === "Node")
+                baseURL = this.baseUrl;
+            axios.patch(baseURL + url, data, {headers: this.messageHeaders}).then(response => {
+                if (response.data.message === "TokenExpiredError") {
+                    alert("Session Timeout Please Login Again !");
+                    this.userService.logout();
+                    document.location.href = "login.html";
+                }
                 resolve(response);
             }).catch(err => {
                 resolve(err);
@@ -61,7 +91,12 @@ export default class APIService {
         else if (type === "Node")
             baseURL = this.baseUrl;
         return new Promise((resolve, reject) => {
-            axios.get(baseURL + url, { headers: this.messageHeaders}).then(response => {
+            axios.get(baseURL + url, {headers: this.messageHeaders}).then(response => {
+                if (response.data.message === "TokenExpiredError") {
+                    alert("Session Timeout Please Login Again !");
+                    this.userService.logout();
+                    document.location.href = "login.html";
+                }
                 resolve(response);
             }).catch(err => {
                 resolve(err);
@@ -69,14 +104,19 @@ export default class APIService {
         });
     }
 
-    delete(url, type){
+    delete(url, type) {
         var baseURL = "";
         if (type === "SpringBoot")
             baseURL = this.baseSpringBootUrl;
         else if (type === "Node")
             baseURL = this.baseUrl;
         return new Promise((resolve, reject) => {
-            axios.delete(baseURL + url, { headers: this.messageHeaders}).then(response => {
+            axios.delete(baseURL + url, {headers: this.messageHeaders}).then(response => {
+                if (response.data.message === "TokenExpiredError") {
+                    alert("Session Timeout Please Login Again !");
+                    this.userService.logout();
+                    document.location.href = "login.html";
+                }
                 resolve(response);
             }).catch(err => {
                 resolve(err);

@@ -22,8 +22,7 @@ app.use('/api', require('./authentication/TokenAuthentication'));
 app.use('/api/lecturer', Lecturer);
 app.use('/api/email', Mail);
 
-// app.use('/lecturer', Lecturer);
-// app.use('/email', Mail);
+//App Logging
 app.use('/login', Login);
 
 

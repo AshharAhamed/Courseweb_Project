@@ -1,8 +1,8 @@
 'use strict';
 import React, {Component} from 'react';
-import axios from 'axios';
-import EmailService from "../../services/EmailService";
+import SISService from '../../services/SISService'
 import AdminRegistrationValidation from '../../validation/admin/registration';
+import EmailService from "../../services/EmailService";
 
 export default class RegisterAdminContainer extends Component {
     constructor(props) {
@@ -14,6 +14,7 @@ export default class RegisterAdminContainer extends Component {
             Password: '',
             ConfirmPassword: ''
         };
+        this.SISService = new SISService();
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
@@ -38,19 +39,18 @@ export default class RegisterAdminContainer extends Component {
         e.preventDefault();
         let myAdminRegistrationValidation = new AdminRegistrationValidation(this.state.Username, this.state.Password, this.state.ConfirmPassword);
         if (myAdminRegistrationValidation.validate) {
-            axios.post('http://localhost:8080/admins/', {
+            this.SISService.addAdmin({
                 'userName': this.state.Username,
                 'password': this.state.Password,
                 'email': this.state.Email
             }).then(response => {
                 alert(response.data.message);
                 if (response.data.status === "200") {
-                    alert(response.data.status);
                     let myEmailService = new EmailService();
                     myEmailService.sendEmailToAdmin(this.state.Email, this.state.Username);
                     document.location.href = "adminHome.html";
                 }
-            })
+            });
         }
     }
 

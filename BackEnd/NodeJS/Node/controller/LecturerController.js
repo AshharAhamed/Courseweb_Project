@@ -1,7 +1,6 @@
 const LecturerModel = require('../models/Lecturer');
-const jwt = require('jsonwebtoken');
-const config = require('../authentication/config');
 const md5 = require('md5');
+const MailService = require('../services/MailService');
 
 const LecturerController = function () {
     this.insert = (data) => {
@@ -69,7 +68,44 @@ const LecturerController = function () {
                 reject({status: 500, err});
             })
         })
-    }
+    };
+
+    this.changePassword = (username, oldPassword, newPassword) => {
+        return new Promise((resolve, reject) => {
+            LecturerModel.find({Username: username}).then((lecturer) => {
+                if (lecturer[0].Password === md5(oldPassword)) {
+                    lecturer[0].Password = md5(newPassword);
+                    lecturer[0].save().then(() => {
+                        resolve({status: 200, message: 'Password Changed Successfully !'});
+                    }).catch(err => {
+                        reject({status: 500, err});
+                    })
+                } else
+                    resolve({status: 500, message: 'Invalid Password !'});
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
+
+    this.resetPassword = (username) => {
+        return new Promise((resolve, reject) => {
+            LecturerModel.find({Username: username}).then((lecturer) => {
+                lecturer[0].Password = md5(lecturer[0].NIC);
+                lecturer[0].save().then(() => {
+                    MailService.sendMail(lecturer[0].Email, "Password Reset", "Hi " + lecturer[0].FirstName + " !\rYour Password has been reset Successfully\rUse your Staff ID and NIC to login\rVisit : http://localhost:1234/").then( data => {
+                        resolve({status: 200, message: 'Password Reset Successfully !'});
+                    }).catch( err => {
+                        reject({status: 500, err});
+                    });
+                }).catch(err => {
+                    reject({status: 500, err});
+                })
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
 };
 
 module.exports = new LecturerController();

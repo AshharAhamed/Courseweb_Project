@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import UserService from '../../../services/UserService'
 import SISService from '../../../services/SISService'
-import axios from 'axios'
 
 export default class LecturerProfile extends Component {
     constructor(props) {
@@ -78,7 +77,7 @@ export default class LecturerProfile extends Component {
             console.log(response);
             alert('Your Profile has been Successfully Updated');
         }).catch(error => {
-                console.log(error);
+            console.log(error);
         });
     }
 

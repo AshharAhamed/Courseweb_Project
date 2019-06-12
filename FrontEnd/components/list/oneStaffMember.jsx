@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from "axios";
 import SISService from '../../services/SISService'
 
 class OneStaffMember extends Component {
@@ -12,10 +11,20 @@ class OneStaffMember extends Component {
         };
         this.SISService = new SISService();
         this.delete = this.delete.bind(this);
+        this.resetPassword = this.resetPassword.bind(this);
     }
 
     delete() {
         this.SISService.deleteStaffMember(this.props.obj.StaffID).then(response => {
+            alert(response.data.message);
+            window.location.reload();
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    resetPassword(){
+        this.SISService.resetPassword({ "Username" : this.props.obj.StaffID}).then(response => {
             alert(response.data.message);
             window.location.reload();
         }).catch(function (error) {
@@ -32,6 +41,7 @@ class OneStaffMember extends Component {
                 <td>{this.props.obj.Email}</td>
                 <td>{this.props.obj.Faculty}</td>
                 <td>
+                    <button style={{marginRight: '10px'}} onClick={this.resetPassword} className="btn btn-warning">Reset Password</button>
                     <button onClick={this.delete} className="btn btn-danger">Delete</button>
                 </td>
             </tr>

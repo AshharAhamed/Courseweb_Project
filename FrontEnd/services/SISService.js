@@ -23,7 +23,7 @@ export default class SISService {
     addStaffMember(data) {
         return new Promise((resolve, reject) => {
             this.apiService.post('/lecturer', data, "Node").then(response => {
-               resolve(response);
+                resolve(response);
             }).catch(error => {
                 reject(error)
             })
@@ -50,7 +50,7 @@ export default class SISService {
         });
     }
 
-    getMemberProfile(staffID){
+    getMemberProfile(staffID) {
         return new Promise((resolve, reject) => {
             this.apiService.get('/lecturer/' + staffID, "Node").then(response => {
                 resolve(response)
@@ -60,9 +60,29 @@ export default class SISService {
         });
     }
 
-    modifyMember(staffID, data){
+    modifyMember(staffID, data) {
         return new Promise((resolve, reject) => {
-            this.apiService.put('/lecturer/' + staffID, data,"Node").then(response => {
+            this.apiService.put('/lecturer/' + staffID, data, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    changePassword(data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.put('/lecturer/', data, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    resetPassword(data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.patch('/lecturer/', data, "Node").then(response => {
                 resolve(response)
             }).catch(err => {
                 reject(err)
@@ -71,6 +91,17 @@ export default class SISService {
     }
 
     //-------------------------------------------------------Admin Functions ----------------------------------------------------------------------------
+    addAdmin(data){
+        return new Promise((resolve, reject) => {
+            this.apiService.post('/admins/', data, "SpringBoot").then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
+
     getAdminList() {
         return new Promise((resolve, reject) => {
             this.apiService.get('/admins/', "SpringBoot").then(response => {
@@ -92,7 +123,7 @@ export default class SISService {
     }
 
     //-------------------------------------------------------Email Functions ----------------------------------------------------------------------------
-    sendEmail(data){
+    sendEmail(data) {
         return new Promise((resolve, reject) => {
             this.apiService.post('/email', data, "Node").then(response => {
                 resolve(response);

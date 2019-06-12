@@ -3,6 +3,6 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import RegisterContainer from "./registerContainer";
+import RegisterStudentContainer from "./registerStudentContainer";
 
-render(<RegisterContainer/>, document.getElementById('registerForm'));
+render(<RegisterStudentContainer/>, document.getElementById('registerForm'));

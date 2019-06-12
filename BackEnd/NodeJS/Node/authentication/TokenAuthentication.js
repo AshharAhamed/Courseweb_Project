@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
         jwt.verify(token, config.secret, function (error, decoded) {
             if(error){
                 console.log(error);
-                return res.status(500).send(error);
+                return res.json({status : 500, message : 'TokenExpiredError', data : error});
             }else {
                 req.decoded = decoded;
                 return next();

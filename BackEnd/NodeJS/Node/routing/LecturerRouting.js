@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const LecturerController = require('../controller/LecturerController');
-const jwt = require('jsonwebtoken');
-const config = require('../authentication/config');
 
 router.post('/', (req, res) => {
     LecturerController.insert(req.body).then((data) => {
@@ -38,6 +36,22 @@ router.get("/", (req, res) => {
 
 router.get("/:Username", (req, res) => {
     LecturerController.get(req.params.Username).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
+router.put("/", (req, res) => {
+    LecturerController.changePassword(req.body.Username, req.body.OldPassword, req.body.NewPassword).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
+router.patch("/", (req, res) => {
+    LecturerController.resetPassword(req.body.Username).then((data) => {
         res.json(data)
     }).catch(err => {
         res.json(err);

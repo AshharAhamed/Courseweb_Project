@@ -6,7 +6,7 @@
     "start": "parcel manageStaff.html",
     "parcel:dev": "parcel manageStaff.html",
     "parcel:watch": "parcel manageStaff.html",
-    "parcel:build": "parcel ./WebContent/Lecturer/lecturerChangePassword.html"
+    "parcel:build": "parcel ./WebContent/Login/login.html"
   },
   "dependencies": {
     "alert-node": "^1.2.4",
