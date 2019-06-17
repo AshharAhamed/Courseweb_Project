@@ -93,7 +93,7 @@ const LecturerController = function () {
             LecturerModel.find({Username: username}).then((lecturer) => {
                 lecturer[0].Password = md5(lecturer[0].NIC);
                 lecturer[0].save().then(() => {
-                    MailService.sendMail(lecturer[0].Email, "Password Reset", "Hi " + lecturer[0].FirstName + " !\rYour Password has been reset Successfully\rUse your Staff ID and NIC to login\rVisit : http://localhost:1234/").then( data => {
+                    MailService.sendMail(lecturer[0].Email, lecturer[0].FirstName, "Password Reset", "Password Reset", { "Username" : lecturer[0].Username, "Password" : lecturer[0].NIC}).then( data => {
                         resolve({status: 200, message: 'Password Reset Successfully !'});
                     }).catch( err => {
                         reject({status: 500, err});
