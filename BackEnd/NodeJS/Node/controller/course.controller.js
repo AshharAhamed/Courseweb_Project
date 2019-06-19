@@ -4,7 +4,7 @@ const courseModel = require("../models/course.model.schema");
 
 const CourseController = function () {
 
-    this.Inser = (data) =>{
+    this.inser = (data) =>{
         return new Promise((resolve,reject) => {
             courseModel.findOne({CourseId : data.CourseId}).then(course =>{
                 if (course === null){
@@ -37,12 +37,26 @@ const CourseController = function () {
     this.delete = (CourseID) =>{
         return new Promise( (resolve,reject) =>{
             courseModel.findOneAndRemove({CourseId : CourseID}).then( data=>{
-                if (err)
+                if (data ===null)
                     resolve({status : 404, message : 'Course Not Found'});
                 else
                     resolve({status : 200, message : 'Course Successfully deleted'});
             }).catch(err =>{
                 reject({status : 500, err});
+            })
+        })
+    }
+
+    this.getCourrseById = (CourseID)=>{
+        return new Promise((resolve,reject) =>{
+            courseModel.findOne({CourseId : CourseID}).then(data =>{
+                if (data ===null)
+                    resolve({status : 404, message : 'Course Not Found'});
+                else
+                    resolve({status : 200, data : data});
+
+            }).catch(err =>{
+                reject({status:500, message : err});
             })
         })
     }
