@@ -10,7 +10,13 @@ const CourseSchema = new mongoose.Schema({
     Semester : String,
     Faculty : String,
     Department : String,    
-    CourseAddedDate : String
+    CourseAddedDate : String,
+    AcceptByLectureFlag : {
+        type : Number,
+        min : 0,
+        max : 1,
+        default :0
+    },
 
 });
 const Course = mongoose.model('Course',CourseSchema);
