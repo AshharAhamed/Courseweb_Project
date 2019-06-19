@@ -19,7 +19,7 @@ class App extends Component {
         super(props);
         this.userService = new UserService();
         this.state = {
-            isLoggedIn: this.userService.isLoggedIn
+            isLoggedIn: this.userService.isLoggedIn,
         };
     }
 

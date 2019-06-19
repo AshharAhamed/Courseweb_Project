@@ -28,7 +28,7 @@ class OneAdminMember extends Component {
                 <td>{this.props.obj.userName}</td>
                 <td>{this.props.obj.email}</td>
                 <td>
-                    <button onClick={this.delete} className="btn btn-danger">Delete</button>
+                    <button onClick={this.delete} className="btn btn-danger">Delete  <i className="fa fa-trash"/></button>
                 </td>
             </tr>
         )
