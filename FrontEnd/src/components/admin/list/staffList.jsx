@@ -9,6 +9,7 @@ export default class StaffList extends Component {
             staffMembers: []
         };
         this.SISService = new SISService();
+
     }
 
     componentDidMount() {
@@ -19,6 +20,7 @@ export default class StaffList extends Component {
         });
     }
 
+
     tabRow() {
         return this.state.staffMembers.map(function (object, i) {
             return <OneStaffMember obj={object} key={i}/>;
@@ -28,7 +30,6 @@ export default class StaffList extends Component {
     render() {
         return (
             <div>
-
                 <div className="tableClass">
                     <h4>Registered Lecturers</h4>
                     <table className="table">

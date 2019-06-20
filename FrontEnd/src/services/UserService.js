@@ -44,5 +44,7 @@ export default class UserService {
         localStorage.removeItem('LoggedInStatus');
         localStorage.removeItem('Username');
         localStorage.removeItem('tokenData');
+        localStorage.removeItem('Type');
+        window.location.href = "/login"
     }
 }

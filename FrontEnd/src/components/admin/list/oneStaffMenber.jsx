@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import SISService from '../../../services/SISService'
+import Ripples from "react-ripples";
 
 class OneStaffMember extends Component {
     constructor(props) {
@@ -23,8 +24,8 @@ class OneStaffMember extends Component {
         });
     }
 
-    resetPassword(){
-        this.SISService.resetPassword({ "Username" : this.props.obj.StaffID}).then(response => {
+    resetPassword() {
+        this.SISService.resetPassword({"Username": this.props.obj.StaffID}).then(response => {
             alert(response.data.message);
             window.location.reload();
         }).catch(function (error) {
@@ -41,8 +42,14 @@ class OneStaffMember extends Component {
                 <td>{this.props.obj.Email}</td>
                 <td>{this.props.obj.Faculty}</td>
                 <td>
-                    <button style={{marginRight: '10px'}} onClick={this.resetPassword} className="btn btn-warning">Reset Password</button>
-                    <button onClick={this.delete} className="btn btn-danger">Delete</button>
+                    <Ripples>
+                        <button style={{marginRight: '10px'}} onClick={this.resetPassword}
+                                className="btn btn-warning">Reset Password <i className="fa fa-refresh"/></button>
+                    </Ripples>
+                    <Ripples>
+                        <button onClick={this.delete} className="btn btn-danger">Delete <i className="fa fa-trash"/>
+                        </button>
+                    </Ripples>
                 </td>
             </tr>
         )

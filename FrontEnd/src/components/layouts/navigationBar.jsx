@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import UserService from '../../services/UserService'
+import Clock from "react-digital-clock";
 
 export default class NavigationBar extends Component {
     constructor(props) {
@@ -56,15 +57,16 @@ export default class NavigationBar extends Component {
                                 <Link className="nav-link" to="/manageCourse">Manage Courses</Link>
                             </li>
                         </ul>
-                    ) : null
-
-
+                    ) : window.location.href = "/login"
                 }
+                <div style={{marginRight : "10px"}}>
+                    <Clock/>
+                </div>
                 <div className="form-inline my-2 my-lg-0">
                     <ul className="navbar-nav mr-auto">
-                        <div className="navbar-brand"><Link className="navbar-brand" to="/login">Log Out <i
+                        <div className="navbar-brand" onClick={this.userService.logout}>Log Out <i
                             className="fa fa-sign-out" style={{margin: '12px'}}/>
-                        </Link></div>
+                        </div>
                     </ul>
                 </div>
             </nav>)
