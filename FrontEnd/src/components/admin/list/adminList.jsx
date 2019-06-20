@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import OneAdminMember from "./oneAdmin"
 import SISService from '../../../services/SISService'
+import QueueAnim from "rc-queue-anim";
 
 export default class AdminList extends Component {
     constructor(props) {
@@ -32,9 +33,9 @@ export default class AdminList extends Component {
                 <table className="table">
                     <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Action</th>
+                        <th><QueueAnim><div key="1">Username</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Email</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Action</div></QueueAnim></th>
                     </tr>
                     </thead>
                     <tbody>

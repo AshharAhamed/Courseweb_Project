@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import OneStaffMember from "./oneStaffMenber"
 import SISService from '../../../services/SISService'
+import QueueAnim from "rc-queue-anim";
 
 export default class StaffList extends Component {
     constructor(props) {
@@ -35,12 +36,12 @@ export default class StaffList extends Component {
                     <table className="table">
                         <thead>
                         <tr>
-                            <th>Staff ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Faculty</th>
-                            <th>Action</th>
+                            <th><QueueAnim><div key="1">Staff ID</div></QueueAnim></th>
+                            <th><QueueAnim><div key="1">First Name</div></QueueAnim></th>
+                            <th><QueueAnim><div key="1">Last Name</div></QueueAnim></th>
+                            <th><QueueAnim><div key="1">Email</div></QueueAnim></th>
+                            <th><QueueAnim><div key="1">Faculty</div></QueueAnim></th>
+                            <th><QueueAnim><div key="1">Action</div></QueueAnim></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -7,7 +7,7 @@ class OneCourse extends Component{
         this.state ={
             course:{},
 
-        }
+        };
         this.delete=this.delete.bind(this);
         this.editCourse=this.editCourse.bind(this);
     }
@@ -32,8 +32,8 @@ class OneCourse extends Component{
                 <td>{this.props.obj.CourseAddedDate}</td>
                 <td>{this.props.obj.NumberOfEnrolledStudent}</td>
                 <td>
-                    <button style={{marginRight: '10px'}} onClick={this.editCourse} className="btn btn-warning">Edit</button>
-                    <button onClick={this.delete} className="btn btn-danger">Delete</button>
+                    <button style={{marginRight: '10px'}} onClick={this.editCourse} className="btn btn-warning">Edit  <i className="fa fa-edit"/></button>
+                    <button onClick={this.delete} className="btn btn-danger">Delete  <i className="fa fa-trash"/></button>
                 </td>
             </tr>
         )
