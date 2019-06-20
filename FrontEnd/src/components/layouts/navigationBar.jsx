@@ -53,7 +53,7 @@ export default class NavigationBar extends Component {
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link" to="">Manage Courses</Link>
+                                <Link className="nav-link" to="/manageCourse">Manage Courses</Link>
                             </li>
                         </ul>
                     ) : null

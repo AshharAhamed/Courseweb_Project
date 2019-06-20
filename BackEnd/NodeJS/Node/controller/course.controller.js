@@ -4,7 +4,7 @@ const courseModel = require("../models/course.model.schema");
 
 const CourseController = function () {
 
-    this.inser = (data) =>{
+    this.insert = (data) =>{
         return new Promise((resolve,reject) => {
             courseModel.findOne({CourseId : data.CourseId}).then(course =>{
                 if (course === null){
@@ -60,6 +60,16 @@ const CourseController = function () {
             })
         })
     }
+
+    this.getAll = () => {
+        return new Promise((resolve, reject) => {
+            courseModel.find().then((courses) => {
+                resolve(courses);
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
 }
 
 module.exports = new CourseController();
