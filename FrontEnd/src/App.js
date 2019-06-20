@@ -13,6 +13,7 @@ import RegisterLecturer from './components/admin/registerLecturer'
 import ManageAdmin from './components/admin/manageAdmin'
 import RegisterAdmin from './components/admin/registerAdmin'
 import ManageCourse from "./components/admin/manageCourse";
+import AddCourse from "./components/admin/addCourse";
 
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
                     <Route exact path="/manageAdmin" component={ManageAdmin}/>
                     <Route exact path="/registerAdmin" component={RegisterAdmin}/>
                     <Route exact path="/manageCourse" component = {ManageCourse}/>
+                    <Route exact path="/addCourse" component = {AddCourse}/>
 
                 </div>
             </Router>
