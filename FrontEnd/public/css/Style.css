@@ -45,3 +45,16 @@ div.absolute {
 	height: 1000px;
 	overflow-y: scroll;
 }
+
+.imageContainer {
+	position: relative;
+	text-align: center;
+	color: white;
+}
+
+.centeredImageText {
+	position: absolute;
+	top: 108%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

@@ -13,7 +13,7 @@ export default class Footer extends Component {
                 <div className="footer-center">
 
                     <div>
-                        <i className="fa fa-map-marker"/>
+                            <i className="fa fa-map-marker"/>
                         <p><span>21 Revolution Street</span> 1028 Victoria Street, Illinois</p>
                     </div>
 
