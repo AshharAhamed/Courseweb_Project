@@ -70,6 +70,16 @@ const CourseController = function () {
             })
         })
     };
+    
+    this.getCourseForNoticfication = () =>{
+        return new Promise((resolve, reject) => {
+            courseModel.find({AcceptByLectureFlag : 0},  function (err, docs) {}).then((courses) => {
+                resolve(courses);
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    }
 }
 
 module.exports = new CourseController();
