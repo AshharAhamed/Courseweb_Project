@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import UserService from '../../services/UserService'
 import NavigationBar from '../layouts/navigationBar'
 import PageFooter from '../layouts/footer'
+import SlideShow from '../admin/adminBody'
 
 export default class LecturerDashboard extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export default class LecturerDashboard extends Component {
         this.userService = new UserService();
         this.state = {
             isLoggedIn: this.userService.isLoggedIn,
-            userType : this.userService.Type
+            userType: this.userService.Type
         };
     }
 
@@ -17,7 +18,8 @@ export default class LecturerDashboard extends Component {
         return (
             <div>
                 <NavigationBar/>
-                    <PageFooter/>
+                <SlideShow/>
+                <PageFooter/>
             </div>
         )
     };

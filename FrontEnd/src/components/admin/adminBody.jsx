@@ -24,7 +24,7 @@ export default class AdminBody extends Component {
             <Fade>
                 <div className="each-slide">
                     <div style={{marginLeft : "210px" , marginBottom : "100px"}}>
-                        
+
                         <div className="imageContainer">
                         <img src={ require('../../images/i3.jpg')} width="1500" height="700" style={{ display: "block", marginleft: "auto", marginRight: "auto"}}/>
                         <div className="centeredImageText">

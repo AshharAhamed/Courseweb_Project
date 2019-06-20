@@ -5,7 +5,6 @@ import RegisterStudent from './components/register/registerStudent'
 import UserService from './services/UserService'
 import LecturerHome from './components/lecturer/lecturerDashboard'
 import LecturerProfile from './components/lecturer/profile'
-import ChangePassword from './components/lecturer/changePassword'
 
 import AdminHome from './components/admin/adminDashboard'
 import ManageStaff from './components/admin/manageStaff'
@@ -33,7 +32,6 @@ class App extends Component {
                     <Route exact path="/registerStudent" component={RegisterStudent}/>
                     <Route exact path="/lecturerHome" component={LecturerHome}/>
                     <Route exact path="/lecturerProfile" component={LecturerProfile}/>
-                    <Route exact path="/changePassword" component={ChangePassword}/>
 
 
                     <Route exact path="/adminHome" component={AdminHome}/>
