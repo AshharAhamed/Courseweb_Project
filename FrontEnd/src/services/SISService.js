@@ -133,7 +133,6 @@ export default class SISService {
         })
     }
 
-
     getStudentProfile(studentID) {
         return new Promise((resolve, reject) => {
             this.apiService.get('/student/' + studentID, "Node").then(response => {
@@ -177,6 +176,36 @@ export default class SISService {
     resetStudentPassword(studentID) {
         return new Promise((resolve, reject) => {
             this.apiService.patch('/student/resetPassword/'+ studentID, {},  "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    enroll(studentID, data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.patch('/student/enroll/'+ studentID, data,  "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    unEnroll(studentID, data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.patch('/student/unEnroll/'+ studentID, data,  "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    getEnrolledCourses(studentID) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/student/courses/'+ studentID,  "Node").then(response => {
                 resolve(response)
             }).catch(err => {
                 reject(err)

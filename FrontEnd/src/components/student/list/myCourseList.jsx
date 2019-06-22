@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
-import OneCourse from "./oneCourse";
-import CourseService from "../../../services/CourseService";
+import OneCourse from "./OneMyCourse";
+import SISService from "../../../services/SISService";
 import QueueAnim from "rc-queue-anim";
+import UserService from "../../../services/UserService";
 
 export default class CourseList extends Component{
-
     constructor(props) {
         super(props);
         this.state = {
             courses :[]
         };
-        this.courseService = new CourseService()
+        this.SISService = new SISService();
+        this.userService = new UserService();
     }
 
     componentDidMount() {
-        this.courseService.getAcceptedCourses().then(response=>{
+        this.SISService.getEnrolledCourses(this.userService.username).then(response=>{
             this.setState({
                 courses : response.data
             });

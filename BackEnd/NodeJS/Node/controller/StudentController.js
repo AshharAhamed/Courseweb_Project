@@ -18,8 +18,8 @@ var StudentController = function () {
                         Mobile: data.Mobile,
                         DoB: data.DoB,
                         NIC: data.NIC,
-                        Faculty : data.Faculty,
-                        Gender : data.Gender
+                        Faculty: data.Faculty,
+                        Gender: data.Gender
                     });
 
                     // for( i = 0 ; i < data.course.length ; ++i){
@@ -43,8 +43,10 @@ var StudentController = function () {
                     student.Password = md5(data.NIC);
                     student.save().then(student => {
                         resolve({status: 200, message: 'Student Added Successfully'});
-                        MailService.sendMail(student.Email, student.FirstName, "Registration", "Lecturer Registration", { "Username" : student.SID,
-                            "Password" : student.NIC})
+                        MailService.sendMail(student.Email, student.FirstName, "Registration", "Lecturer Registration", {
+                            "Username": student.SID,
+                            "Password": student.NIC
+                        })
                     }).catch(err => {
                         reject({status: 500, message: err})
                     });
@@ -78,7 +80,25 @@ var StudentController = function () {
         })
     };
 
-    this.updateProfile = (StudentID, data) => { //all, some data ?
+    this.getCourses = (StudentID) => {
+        return new Promise((resolve, reject) => {
+            StudentModel.findOne({SID: StudentID}).populate('Courses').then((student) => {
+                if (student === null)
+                    resolve({status: 404, message: 'Student not found'});
+                else {
+                    var courseArray = [];
+                    for (var i = 0; i < student.Courses.length; i++) {
+                        courseArray.push(student.Courses[i])
+                    }
+                    resolve(courseArray);
+                }
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
+
+    this.updateProfile = (StudentID, data) => {
         return new Promise((resolve, reject) => {
             StudentModel.findOneAndUpdate(({SID: StudentID}), data).then((student) => {
                 if (student === null)
@@ -91,16 +111,69 @@ var StudentController = function () {
         })
     };
 
-    this.enrollCourse = (SID, data) => { //all, some data ?
+    this.enrollCourse = (StudentID, courseID, enrollmentKey) => {
         return new Promise((resolve, reject) => {
-            StudentModel.findOneAndUpdate(({SID: SID}), data).then((student) => {
+            StudentModel.findOne({SID: StudentID}).then((student) => {
                 if (student === null)
                     resolve({status: 404, message: 'Student not found'});
-                else
-                    student.course = data.course,
-                        resolve({status: 200, message: "Student '" + SID + "' Successfully Updated"});
+                else {
+                    CourseModel.findOne({CourseId: courseID}).then(course => {
+                        if (course === null) {
+                            resolve({status: 500, message: "Invalid Course ID !"});
+                        } else {
+                            if (course.EnrollmentKey === enrollmentKey) {
+                                student.Courses.indexOf(course._id) === -1 ? student.Courses.push(course._id) : reject({
+                                    status: 500,
+                                    message: "You have already Enrolled for " + course.CourseName
+                                });
+                                let courseVar = {
+                                    Courses: student.Courses
+                                };
+                                StudentModel.findOneAndUpdate({_id: student._id}, courseVar).then((studentupdated) => {
+                                    resolve({
+                                        status: 200,
+                                        message: "You have successfully Enrolled to " + course.CourseName
+                                    });
+                                }).catch(err => {
+                                    resolve({status: 500, message: err});
+                                })
+                            } else
+                                resolve({status: 500, message: "Invalid Enrollment Key !"});
+                        }
+                    })
+                }
             }).catch(err => {
                 reject({status: 500, err});
+            })
+        })
+    };
+
+    this.unEnrollCourse = (StudentID, courseID) => {
+        return new Promise((resolve, reject) => {
+            StudentModel.findOne({SID: StudentID}).then((student) => {
+                if (student === null)
+                    resolve({status: 404, message: 'Student not found'});
+                else {
+                    var index = student.Courses.indexOf(courseID);
+                    if (index > -1) {
+                        student.Courses.splice(index, 1);
+                    }else{
+                        reject({status: 404, message : "Course Not Found"});
+                    }
+                    let courseVar = {
+                        Courses: student.Courses
+                    };
+                    StudentModel.findOneAndUpdate({_id: student._id}, courseVar).then((studentupdated) => {
+                        resolve({
+                            status: 200,
+                            message: "You have successfully UnEnrolled"
+                        });
+                    }).catch(err => {
+                        resolve({status: 500, message: err});
+                    })
+                }
+            }).catch(err => {
+                reject({status: 500, message : err});
             })
         })
     };
@@ -138,9 +211,12 @@ var StudentController = function () {
             StudentModel.find({SID: studentID}).then((student) => {
                 student[0].Password = md5(student[0].NIC);
                 student[0].save().then(() => {
-                    MailService.sendMail(student[0].Email, student[0].FirstName, "Password Reset", "Password Reset", { "Username" : student[0].SID, "Password" : student[0].NIC}).then( data => {
+                    MailService.sendMail(student[0].Email, student[0].FirstName, "Password Reset", "Password Reset", {
+                        "Username": student[0].SID,
+                        "Password": student[0].NIC
+                    }).then(data => {
                         resolve({status: 200, message: 'Password Reset Successfully !'});
-                    }).catch( err => {
+                    }).catch(err => {
                         reject({status: 500, err});
                     });
                 }).catch(err => {

@@ -110,7 +110,7 @@ export default class AddCourse extends Component {
             'CourseName': this.state.CourseName,
             'CourseId': this.state.CourseId,
             'InchargLecture' : this.state.InchargLecture,
-            'EnrollementKey' : this.state.EnrollKey,
+            'EnrollmentKey' : this.state.EnrollKey,
             'NumberOfEnrolledStudent': 0,
             'Year': year,
             'Semester': semester,
