@@ -44,10 +44,18 @@ router.get('/getAll',(req,res)=>{
     })
 });
 
-router.get('/getCourseNotification',(req,res)=>{
-    CourseController.getCourseForNoticfication().then(data=>{
+router.get('/getCourseNotification/:Id',(req,res)=>{
+    CourseController.getCourseForNoticfication(req.params.Id).then(data=>{
         res.json(data);
     }).catch(err=>{
+        res.json(err);
+    })
+});
+
+router.put('/updateCourseNotification/:CourseId',(req,res)=>{
+    CourseController.updateCourseForNoticfication(req.params.CourseId,req.body).then(data =>{
+        res.json(data);
+    }).catch(err =>{
         res.json(err);
     })
 });

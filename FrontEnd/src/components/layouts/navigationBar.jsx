@@ -28,7 +28,7 @@ export default class NavigationBar extends Component {
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">My Notifications</Link>
+                                <Link className="nav-link" to="/lecturerNotification">My Notifications</Link>
                             </li>
 
                             <li className="nav-item">

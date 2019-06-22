@@ -71,9 +71,9 @@ const CourseController = function () {
         })
     };
     
-    this.getCourseForNoticfication = () =>{
+    this.getCourseForNoticfication = (LecturerId) =>{
         return new Promise((resolve, reject) => {
-            courseModel.find({AcceptByLectureFlag : 0},  function (err, docs) {}).then((courses) => {
+            courseModel.find({AcceptByLectureFlag : 0, InchargLecture: LecturerId},  function (err, docs) {}).then((courses) => {
                 resolve(courses);
             }).catch(err => {
                 reject({status: 500, err});
@@ -83,14 +83,32 @@ const CourseController = function () {
 
     this.updateCourseForNoticfication = (CourseID ,data) =>{
         return new Promise((resolve,reject) =>{
-            courseModel.find(({CourseId : CourseID})).then((course) =>{
+            courseModel.find(({CourseId : CourseID})).then(course =>{
                 if (course === null)
                     resolve({status: 404, message: 'Course not found'});
                 else{
-                    course.AcceptByLectureFlag = 1
-                    resolve({status: 200, message: "Course ID '" + CourseID + "' Notification Successfully updated"});
+                    console.log(course[0]);
+                    console.log(data)
+                   var courseFinal = {
+                       CourseName : course[0].CourseName,
+                       InchargLecture : course[0].InchargLecture,
+                       CourseId : course[0].CourseId,
+                       NumberOfEnrolledStudent : course[0].NumberOfEnrolledStudent,
+                       Year : course[0].Year,
+                       Semester : course[0].Semester,
+                       Faculty : course[0].Faculty,
+                       Department : course[0].Department,
+                       CourseAddedDate : course[0].CourseAddedDate,
+                        AcceptByLectureFlag :data.AcceptByLectureFlag
+                    }
+                    // course.AcceptByLectureFlag : 1;
+                    courseModel.findOneAndUpdate(({CourseId : CourseID}),courseFinal).then(course1=>{
+                        if (course1 === null)
+                            resolve({status: 404, message: 'Course not found'});
+                        else
+                            resolve({status: 200, message: "Course ID '" + CourseID + "' Notification Successfully updated"});
+                    })
                 }
-
             }).catch(err =>{
                 reject({status: 500, err});
             })

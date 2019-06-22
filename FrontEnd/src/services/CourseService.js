@@ -54,4 +54,24 @@ export default class CourseService {
             })
         });
     }
+
+    getCourseNotification(LecturerId){
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/course/getCourseNotification/'+LecturerId, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    updateCourseForNotification(courseId,data){
+        return new Promise((resolve,reject)=>{
+            this.apiService.put('/course/updateCourseNotification/'+courseId,data,"Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    }
 }
