@@ -26,6 +26,7 @@ class App extends Component {
         this.userService = new UserService();
         this.state = {
             isLoggedIn: this.userService.isLoggedIn,
+            userType: this.userService.Type
         };
     }
 
@@ -33,11 +34,12 @@ class App extends Component {
         return (
             <Router>
                 <div>
+
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/registerStudent" component={RegisterStudent}/>
+
                     <Route exact path="/lecturerHome" component={LecturerHome}/>
                     <Route exact path="/lecturerProfile" component={LecturerProfile}/>
-
 
                     <Route exact path="/adminHome" component={AdminHome}/>
                     <Route exact path="/manageStaff" component={ManageStaff}/>
