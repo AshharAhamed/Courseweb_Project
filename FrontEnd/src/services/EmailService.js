@@ -29,4 +29,17 @@ export default class EmailService {
             console.log(res.data);
         });
     }
+
+    sendMailToLecturer(recepient,firstName, userName,course){
+        this.SISService.sendEmail({
+            'recepient': recepient,
+            'firstName':firstName,
+            'subject': 'Course Added To You',
+            'messageType' : 'Course Added',
+            'Username' : userName,
+            'course' : course
+        }).then(res => {
+            console.log(res.data);
+        });
+    }
 }

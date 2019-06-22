@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import CourseService from "../../services/CourseService";
+import EmailService from "../../services/EmailService";
+import UserService from "../../services/UserService";
+import SISService from "../../services/SISService";
 
 export default class AddCourse extends Component {
     constructor(props) {
         super(props);
+        this.userService = new UserService();
         this.state = {
             CourseName: '',
             InchargLecture : '',
@@ -16,12 +20,46 @@ export default class AddCourse extends Component {
             Faculty: '',
             Department: '',
             CourseAddedDate: '',
-            AcceptByLectureFlag: 0
+            AcceptByLectureFlag: 0,
+
+            username :this.userService.username,
+
+            firstName: '',
+            lastName: '',
+            email: '',
+            mobile:'' ,
+            dob: '',
+            nic:'' ,
+            staffId: '',
+            faculty: '',
+            gender:'' ,
+            userName: ''
         };
         this.courseService = new CourseService();
+        this.SISService = new SISService();
         this.onChange = this.onChange.bind(this);
         this.clearForm = this.clearForm.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
+        this.loadUserData(this.state.username);
+    }
+
+    loadUserData(username){
+        this.SISService.getMemberProfile(username).then(response => {
+
+            this.setState({
+                firstName: response.data.FirstName,
+                lastName: response.data.LastName,
+                email: response.data.Email,
+                mobile: response.data.Mobile,
+                nic: response.data.NIC,
+                staffId: response.data.StaffID,
+                faculty: response.data.Faculty,
+                gender: response.data.Gender,
+                userName: response.data.Username
+            });
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     onChange(e) {
@@ -58,8 +96,16 @@ export default class AddCourse extends Component {
             var semester = this.refs.Semester.value;
         }
 
-        var currentDate = new Date();
-        var dateInFormate = currentDate.getDay()+"-"+(currentDate.getMonth()+1)+"-"+currentDate.getFullYear();
+        let currentDate = new Date(),
+            month = '' + (currentDate.getMonth() + 1),
+            day = '' + currentDate.getDate(),
+            year1 = currentDate.getFullYear();
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+        const dateInFormate = [year1, month, day].join('-');
+        // var dateInFormate = currentDate.getDay()+"-"+(currentDate.getMonth()+1)+"-"+currentDate.getFullYear();
        const data = {
             'CourseName': this.state.CourseName,
             'CourseId': this.state.CourseId,
@@ -77,6 +123,8 @@ export default class AddCourse extends Component {
         this.courseService.addCourse(data).then(response =>{
             alert(response.data.message);
             if(response.data.status === 200){
+                let myEmailService = new EmailService();
+                myEmailService.sendMailToLecturer();
                 window.location.href = "/manageCourse"
             }
         })
@@ -129,7 +177,7 @@ export default class AddCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Faculty</span>
                         <div>
-                            <select className="selection-2" name="faculty" ref="Faculty">
+                            <select className="selection-2" name="Faculty" ref="Faculty">
                                 <option value="Faculty of Computing">Faculty of Computing</option>
                                 <option value="Faculty of Business">Faculty of Business</option>
                                 <option value="Faculty of Engineering">Faculty of Engineering</option>
@@ -141,7 +189,7 @@ export default class AddCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Year</span>
                         <div>
-                            <select className="selection-2" name="year" ref="Year">
+                            <select className="selection-2" name="Year" ref="Year">
                                 <option value="1">1st year</option>
                                 <option value="2">2nd year</option>
                                 <option value="3">3rd year</option>
@@ -154,7 +202,7 @@ export default class AddCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Semester</span>
                         <div>
-                            <select className="selection-2" name="semester" ref="Semester">
+                            <select className="selection-2" name="Semester" ref="Semester">
                                 <option value="1">1st Semester</option>
                                 <option value="2">2nd Semester</option>
                             </select>

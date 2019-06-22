@@ -25,6 +25,8 @@ const MailService = function () {
                     message = Template.getAdminRegistrationSuccessful(recipientName, data.Username);
                 }else if(messageType === "Password Reset"){
                     message = Template.getPasswordResetSuccessful(recipientName, data.Username, data.Password)
+                }else if(messageType === "Course Added"){
+                    message = Template.getCourseAddedSuccessful(recipientName, data.Username, data.Password)
                 }
                 return message
             };
