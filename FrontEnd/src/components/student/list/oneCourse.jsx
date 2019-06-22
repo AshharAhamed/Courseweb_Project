@@ -1,27 +1,36 @@
 import React, {Component} from 'react'
 import SISService from '../../../services/SISService'
 import Modal from "react-awesome-modal";
-import AdminRegistrationValidation from "../../../validations/admin/registration";
-import Ripples from "react-ripples";
-import {Button} from "react-bootstrap";
+import UserService from '../../../services/UserService'
 
-class OneCourse extends Component{
-    constructor(props){
+
+class OneCourse extends Component {
+    constructor(props) {
         super(props);
-        this.state ={
-            course:{},
+        this.state = {
+            course: {},
             visibleModal: false,
-            enrollmentKey : ''
+            courseIdTemp: '',
+            enrollmentKey: '',
         };
         this.SISService = new SISService();
+        this.UserService = new UserService();
         this.enroll = this.enroll.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal() {
+    onChange(e) {
         this.setState({
-            visibleModal: true
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    openModal(CourseId) {
+        this.setState({
+            visibleModal: true,
+            courseIdTemp: CourseId
         });
     }
 
@@ -33,6 +42,12 @@ class OneCourse extends Component{
 
     enroll(e) {
         e.preventDefault();
+        this.SISService.enroll(this.UserService.username, {
+            "CourseId": this.state.courseIdTemp,
+            "EnrollmentKey": this.state.enrollmentKey
+        }).then(response => {
+            alert(response.data.message);
+        });
     }
 
     render() {
@@ -46,19 +61,21 @@ class OneCourse extends Component{
                 <td>{this.props.obj.Faculty}</td>
                 <td>{this.props.obj.Department}</td>
                 <td>
-                    <button style={{marginRight: '10px'}} onClick={() => this.openModal()} className="btn btn-warning">Enroll  <i className="fa fa-edit"/></button>
+                    <button style={{marginRight: '10px'}} onClick={this.openModal.bind(this, this.props.obj.CourseId)}
+                            className="btn btn-warning">Enroll <i className="fa fa-edit"/></button>
                 </td>
 
                 <Modal visible={this.state.visibleModal} width="500" height="200" effect="fadeInRight"
                        onClickAway={() => this.closeModal()}>
-                    <i className="fa fa-times" onClick={() => this.closeModal()} aria-hidden="true" style={{marginLeft : "480px"}}/>
+                    <i className="fa fa-times" onClick={() => this.closeModal()} aria-hidden="true"
+                       style={{marginLeft: "480px"}}/>
                     <div className="container p-2" style={{marginBottom: '500px', paddingBottom: '500px'}}>
-                        <form onSubmit={this.onSubmitPassword}>
+                        <form onSubmit={this.enroll}>
                             <div className="wrap-input100 validate-input" data-validate="Name is required">
                                 <span className="label-input100">Enrollement Key : </span>
-                                <input className="input100" type="password" required={true}
+                                <input className="input100" type="text" required={true}
                                        value={this.state.enrollmentKey}
-                                       onChange={this.onChange} name="oldPassword"/>
+                                       onChange={this.onChange} name="enrollmentKey"/>
                                 <span className="focus-input100"/>
                             </div>
 

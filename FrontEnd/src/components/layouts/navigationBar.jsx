@@ -68,7 +68,7 @@ export default class NavigationBar extends Component {
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link" to="">My Courses</Link>
+                                <Link className="nav-link" to="/studentCourses">My Courses</Link>
                             </li>
 
                             <li className="nav-item">

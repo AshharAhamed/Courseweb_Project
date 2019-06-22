@@ -11,7 +11,7 @@ const StudentSchema = new mongoose.Schema({
     NIC: String,
     Faculty : String,
     Gender : String,
-    course: [{
+    Courses : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course'
     }]

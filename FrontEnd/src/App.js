@@ -19,6 +19,7 @@ import EditCourse from "./components/admin/editCourse";
 import StudentHome from './components/student/studentDashboard'
 import StudentAllCourses from './components/student/courses'
 import StudentProfile from './components/student/studentProfile'
+import StudentCourses from './components/student/myCourses'
 
 class App extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ class App extends Component {
                     <Route exact path="/studentHome" component = {StudentHome}/>
                     <Route exact path="/studentAllCourses" component = {StudentAllCourses}/>
                     <Route exact path="/studentProfile" component = {StudentProfile}/>
+                    <Route exact path="/studentCourses" component = {StudentCourses}/>
 
                 </div>
             </Router>

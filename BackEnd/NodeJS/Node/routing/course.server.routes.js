@@ -52,4 +52,12 @@ router.get('/getCourseNotification',(req,res)=>{
     })
 });
 
+router.get('/acceptedCourses',(req,res)=>{
+    CourseController.getAccepted().then(data=>{
+        res.json(data);
+    }).catch(err=>{
+        res.json(err);
+    })
+});
+
 module.exports = router;

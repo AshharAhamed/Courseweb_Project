@@ -26,6 +26,15 @@ router.get("/:SID", (req, res) => {
     })
 });
 
+
+router.get("/courses/:SID", (req, res) => {
+    StudentController.getCourses(req.params.SID).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
 router.get("/myCourse/:SID", (req, res) => {
     StudentController.myCourse(req.params.SID).then((data) => {
         res.json(data)
@@ -42,14 +51,6 @@ router.put("/myProfile/:SID", (req, res) => {
     })
 });
 
-router.put("/enrollCourse/:SID", (req, res) => {
-    StudentController.enrollCourse(req.body.SID, req.body.course).then((data) => {
-        res.json(data)
-    }).catch(err => {
-        res.json(err);
-    })
-});
-
 router.put("/password", (req, res) => {
     StudentController.changePassword(req.body.Username, req.body.OldPassword, req.body.NewPassword).then((data) => {
         res.json(data)
@@ -60,6 +61,22 @@ router.put("/password", (req, res) => {
 
 router.patch("/resetPassword/:SID", (req, res) => {
     StudentController.resetPassword(req.params.SID).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
+router.patch("/enroll/:SID", (req, res) => {
+    StudentController.enrollCourse(req.params.SID, req.body.CourseId, req.body.EnrollmentKey).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
+router.patch("/unEnroll/:SID", (req, res) => {
+    StudentController.unEnrollCourse(req.params.SID, req.body.CourseId).then((data) => {
         res.json(data)
     }).catch(err => {
         res.json(err);

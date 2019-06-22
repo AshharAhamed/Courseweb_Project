@@ -112,19 +112,6 @@ export default class LecturerProfile extends Component {
                 console.log(error);
             });
         }
-
-        // let myLecturerPasswordValidation = new AdminRegistrationValidation(null, this.state.newPassword1, this.state.newPassword2);
-        // if (myLecturerPasswordValidation.isPassword) {
-        //     this.SISService.changePassword({
-        //         "Username": this.userService.username,
-        //         "OldPassword": this.state.oldPassword,
-        //         "NewPassword": this.state.newPassword1
-        //     }).then(response => {
-        //         alert(response.data.message);
-        //     }).catch(error => {
-        //         console.log(error);
-        //     });
-        // }
     }
 
     render() {
@@ -226,7 +213,8 @@ export default class LecturerProfile extends Component {
 
                 <Modal visible={this.state.visibleModal} width="1000" height="400" effect="fadeInRight"
                        onClickAway={() => this.closeModal()}>
-                    <i className="fa fa-times" onClick={() => this.closeModal()} aria-hidden="true" style={{marginLeft : "980px"}}/>
+                    <i className="fa fa-times" onClick={() => this.closeModal()} aria-hidden="true"
+                       style={{marginLeft: "980px"}}/>
                     <div className="container p-2" style={{marginBottom: '500px', paddingBottom: '500px'}}>
                         <form onSubmit={this.onSubmitPassword}>
                             <div className="wrap-input100 validate-input" data-validate="Name is required">
