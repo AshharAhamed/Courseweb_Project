@@ -33,8 +33,8 @@ class OneCourse extends Component{
                 <td>{this.props.obj.CourseAddedDate}</td>
                 <td>{this.props.obj.NumberOfEnrolledStudent}</td>
                 <td>
-                    <Link to={"/editCourse/"+this.props.obj.CourseId} className="btn btn-warning"><i className="fa fa-edit"/> Edit</Link>
-                    <button style={{marginRight: '10px'}} onClick={this.editCourse} className="btn btn-warning">Edit  <i className="fa fa-edit"/></button>
+                    <Link to={"/editCourse/"+this.props.obj.CourseId} className="btn btn-warning"><i
+                        className="fa fa-edit"/> Edit </Link><a> </a>
                     <button onClick={this.delete} className="btn btn-danger">Delete  <i className="fa fa-trash"/></button>
                 </td>
             </tr>
