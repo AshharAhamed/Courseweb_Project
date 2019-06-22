@@ -18,7 +18,15 @@ router.get('/getOneCourse/:CourseId',(req,res)=>{
     }).catch(err =>{
         res.json(err);
     })
-})
+});
+
+router.put("/updateCourse/:CourseId", (req, res) => {
+    CourseController.update(req.params.CourseId, req.body).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
 
 router.delete('/deleteCourse/:CourseId',(req,res)=>{
     CourseController.delete(req.params.CourseId).then(data=>{
@@ -26,7 +34,7 @@ router.delete('/deleteCourse/:CourseId',(req,res)=>{
     }).catch(err=>{
         res.json(err);
     })
-})
+});
 
 router.get('/getAll',(req,res)=>{
     CourseController.getAll().then(data=>{
@@ -34,6 +42,14 @@ router.get('/getAll',(req,res)=>{
     }).catch(err=>{
         res.json(err);
     })
-})
+});
+
+router.get('/getCourseNotification',(req,res)=>{
+    CourseController.getCourseForNoticfication().then(data=>{
+        res.json(data);
+    }).catch(err=>{
+        res.json(err);
+    })
+});
 
 module.exports = router;

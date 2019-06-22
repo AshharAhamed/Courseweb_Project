@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import CourseService from "../../services/CourseService";
 
 
-export default class AddCourse extends Component {
+export default class EditCourse extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,12 +16,38 @@ export default class AddCourse extends Component {
             Faculty: '',
             Department: '',
             CourseAddedDate: '',
-            AcceptByLectureFlag: 0
+            AcceptByLectureFlag: 0,
+
+            oldCourseId :''
         };
         this.courseService = new CourseService();
         this.onChange = this.onChange.bind(this);
         this.clearForm = this.clearForm.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
+        this.oldDataLoad();
+    }
+
+    oldDataLoad() {
+        console.log(this.props.match.params.id);
+        this.courseService.getOneCourse(this.props.match.params.id).then(response =>{
+            console.log(response);
+            this.setState({
+                CourseName: response.data.data.CourseName,
+                InchargLecture : response.data.data.InchargLecture,
+                CourseId: response.data.data.CourseId,
+                NumberOfEnrolledStudent: response.data.data.NumberOfEnrolledStudent,
+                Year: response.data.data.Year,
+                Semester: response.data.data.Semester,
+                Faculty: response.data.data.Faculty,
+                Department: response.data.data.Department,
+                CourseAddedDate: response.data.data.CourseAddedDate,
+                AcceptByLectureFlag: response.data.data.AcceptByLectureFlag,
+
+                oldCourseId :response.data.data.CourseId
+            });
+        }).catch(err =>{
+            console.log(err);
+        })
     }
 
     onChange(e) {
@@ -60,7 +86,8 @@ export default class AddCourse extends Component {
 
         var currentDate = new Date();
         var dateInFormate = currentDate.getDay()+"-"+(currentDate.getMonth()+1)+"-"+currentDate.getFullYear();
-       const data = {
+        var courseId = this.state.oldCourseId;
+        const data = {
             'CourseName': this.state.CourseName,
             'CourseId': this.state.CourseId,
             'InchargLecture' : this.state.InchargLecture,
@@ -72,14 +99,34 @@ export default class AddCourse extends Component {
             'CourseAddedDate' : dateInFormate,
             'AcceptByLectureFlag': 0
         }
+        console.log("modified data *****************");
         console.log(data);
-        this.courseService.addCourse(data).then(response =>{
+
+        this.courseService.editCourse(courseId,data).then(response =>{
             alert(response.data.message);
             if(response.data.status === 200){
                 window.location.href = "/manageCourse"
             }
         })
     }
+
+    /*onChangeFaculty(e){
+        this.setState({
+            Faculty : e.target.value
+        })
+    }
+    onChangeYear(e){
+        this.setState({
+            Year : e.target.value
+        })
+    }
+
+    onChangeSemester(e){
+        this.setState({
+            Semester : e.target.value
+        })
+    }*/
+
 
     render() {
         return <div className="container-contact100">
@@ -94,7 +141,7 @@ export default class AddCourse extends Component {
 
                 <form className="contact100-form validate-form" onSubmit={this.onSubmit}>
 				<span className="contact100-form-title">
-					Add New Course
+					Edit {this.state.CourseName} Course
 				</span>
 
                     <div className="wrap-input100 validate-input" data-validate="Course ID is required">
@@ -121,7 +168,8 @@ export default class AddCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Faculty</span>
                         <div>
-                            <select className="selection-2" name="faculty" ref="Faculty">
+                            <select className="selection-2" name="faculty" ref="Faculty" value={this.state.Faculty}
+                                    onChange={this.onChange}>
                                 <option value="Faculty of Computing">Faculty of Computing</option>
                                 <option value="Faculty of Business">Faculty of Business</option>
                                 <option value="Faculty of Engineering">Faculty of Engineering</option>
@@ -133,7 +181,8 @@ export default class AddCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Year</span>
                         <div>
-                            <select className="selection-2" name="year" ref="Year">
+                            <select className="selection-2" name="year" ref="Year" value={this.state.Year}
+                                    onChange={this.onChange}>
                                 <option value="1">1st year</option>
                                 <option value="2">2nd year</option>
                                 <option value="3">3rd year</option>
@@ -146,7 +195,8 @@ export default class AddCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Semester</span>
                         <div>
-                            <select className="selection-2" name="semester" ref="Semester">
+                            <select className="selection-2" name="semester" ref="Semester" value={this.state.Semester}
+                                    onChange={this.onChange}>
                                 <option value="1">1st Semester</option>
                                 <option value="2">2nd Semester</option>
                             </select>
@@ -167,7 +217,7 @@ export default class AddCourse extends Component {
                             <div className="contact100-form-bgbtn"/>
                             <button className="contact100-form-btn">
 							<span>
-                                Add
+                                Update
                             <input type="submit" value=""/>
 								<i className="fa fa-long-arrow-right m-l-7" aria-hidden="true"/>
 							</span>

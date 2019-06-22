@@ -44,6 +44,7 @@ export default class CourseList extends Component{
                         <th><QueueAnim><div key="1">Department</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Course Added Date</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Enrolled Students</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Lecturer Acceptance</div></QueueAnim></th>
                     </tr>
                     </thead>
                     <tbody>

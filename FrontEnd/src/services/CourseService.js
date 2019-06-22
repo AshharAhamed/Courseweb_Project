@@ -36,8 +36,14 @@ export default class CourseService {
         });
     }
 
-    editCourse(){
-
+    editCourse(courseId,data){
+        return new Promise((resolve,reject)=>{
+            this.apiService.put('/course/updateCourse/'+courseId,data,"Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        })
     }
     getOneCourse(courseId){
         return new Promise((resolve, reject) => {
