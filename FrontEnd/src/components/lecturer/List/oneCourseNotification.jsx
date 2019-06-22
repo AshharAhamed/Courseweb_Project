@@ -43,7 +43,7 @@ class OneCourseNotification extends Component{
                 <td>
                     {/*<Link to={"/editCourse/"+this.props.obj.CourseId} className="btn btn-warning"><i
                         className="fa fa-edit"/> Edit </Link><a> </a>*/}
-                    <button onClick={this.accept} className="btn btn-danger">Accept <i className="fa fa-trash"/></button>
+                    <button onClick={this.accept} className="btn btn-danger">Accept <i className="fa fa-universal-access"/></button>
                 </td>
             </tr>
         )
