@@ -32,6 +32,7 @@ class OneCourse extends Component{
                 <td>{this.props.obj.Department}</td>
                 <td>{this.props.obj.CourseAddedDate}</td>
                 <td>{this.props.obj.NumberOfEnrolledStudent}</td>
+                {this.props.obj.AcceptByLectureFlag == 0? <td>Lecturer not Accept</td>: <td>Lecturer Accepted</td> }
                 <td>
                     <Link to={"/editCourse/"+this.props.obj.CourseId} className="btn btn-warning"><i
                         className="fa fa-edit"/> Edit </Link><a> </a>
