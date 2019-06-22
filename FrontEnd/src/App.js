@@ -15,6 +15,7 @@ import ManageCourse from "./components/admin/manageCourse";
 import AddCourse from "./components/admin/addCourse";
 import ManageStudent from './components/admin/manageStudent'
 import EditCourse from "./components/admin/editCourse";
+import LecturerNotification from "./components/lecturer/lecturerNotification";
 
 import StudentHome from './components/student/studentDashboard'
 import StudentAllCourses from './components/student/courses'
@@ -41,6 +42,7 @@ class App extends Component {
 
                     <Route exact path="/lecturerHome" component={LecturerHome}/>
                     <Route exact path="/lecturerProfile" component={LecturerProfile}/>
+                    <Route exact path="/lecturerNotification" component ={LecturerNotification}/>
 
                     <Route exact path="/adminHome" component={AdminHome}/>
                     <Route exact path="/manageStaff" component={ManageStaff}/>

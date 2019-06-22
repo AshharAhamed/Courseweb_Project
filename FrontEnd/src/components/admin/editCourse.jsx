@@ -106,6 +106,8 @@ export default class EditCourse extends Component {
             if(response.data.status === 200){
                 window.location.href = "/manageCourse"
             }
+        }).catch(err =>{
+            console.log(err);
         })
     }
 

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
+import CourseService from "../../../services/CourseService";
 
 
 class OneCourse extends Component{
@@ -11,6 +12,7 @@ class OneCourse extends Component{
         };
         this.delete=this.delete.bind(this);
         this.editCourse=this.editCourse.bind(this);
+        this.courseService = new CourseService()
     }
 
     editCourse(){
@@ -18,7 +20,12 @@ class OneCourse extends Component{
     }
 
     delete(){
-
+        this.courseService.deleteCourse(this.props.obj.CourseId).then(response => {
+            alert(response.data.message);
+            window.location.reload();
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
    render() {
         return (
