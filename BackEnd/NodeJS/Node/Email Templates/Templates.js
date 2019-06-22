@@ -76,6 +76,50 @@ const template = function () {
             "<p>&nbsp;</p>";
         return courseAdded;
     };
+
+    this.getExamNotificationSuccessful = (CourseId, Title, Type, TotalMarks, PerFinalMark, Date, Duration) => {
+        const ExamNotification = "<h2><span style=\"font-family: Georgia, serif; font-size: 34px; letter-spacing: 2px; word-spacing: 1px; color: #000000; font-weight: bold; text-decoration: none; font-style: normal; font-variant: normal; text-transform: none;\"><strong>Wood Creak University</strong></span></h2>\n" +
+            "<p><span style=\"font-family: Georgia, serif; font-size: 25px; letter-spacing: 2px; word-spacing: 1px; color: #000000; font-weight: 400; text-decoration: none; font-style: normal; font-variant: normal; text-transform: none;\">Exam Notification</span></p>\n" +
+            "<hr />\n" +
+            "<h2><span style=\"color: #000000; font-family: Georgia;\">Dear,</span></h2>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">You have new Examination</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">Please refer the folowing details and be prepared for the Examination&nbsp;</p>\n" +
+            "<p>&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">Exam Details</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Course ID           : " + CourseId + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Exam                : " + Title + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Type of Examination : " + Type + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Total Marks Given   : " + TotalMarks + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Percentage for the final GPA : " + PerFinalMark + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Date Scheduled      : " + Date + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Duration of Exam    : " + Duration + "&nbsp;&nbsp;<br /><br /></p>\n" +
+            "<p style=\"text-align: left;\"><a href=\"http://localhost:1234/login\"><button style=\"background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0); background-color: #33bdef; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; border: 1px solid #057fd0; display: inline-block; cursor: pointer; color: #ffffff; font-family: Courier New; font-size: 19px; font-weight: bold; padding: 9px 26px; text-decoration: none;\"> Login Here </button></a></p>\n" +
+            "<p style=\"text-align: left;\">&nbsp;</p>\n" +
+            "<p style=\"text-align: left;\">&nbsp;</p>\n" +
+            "<p>&nbsp;</p>";
+        return ExamNotification;
+    };
+
+    this.getAssignmentNotificationSuccessful = (CourseId, Title, Description, StartDate, EndDate) => {
+        const AssignmentNotification = "<h2><span style=\"font-family: Georgia, serif; font-size: 34px; letter-spacing: 2px; word-spacing: 1px; color: #000000; font-weight: bold; text-decoration: none; font-style: normal; font-variant: normal; text-transform: none;\"><strong>Wood Creak University</strong></span></h2>\n" +
+            "<p><span style=\"font-family: Georgia, serif; font-size: 25px; letter-spacing: 2px; word-spacing: 1px; color: #000000; font-weight: 400; text-decoration: none; font-style: normal; font-variant: normal; text-transform: none;\">Exam Notification</span></p>\n" +
+            "<hr />\n" +
+            "<h2><span style=\"color: #000000; font-family: Georgia;\">Dear,</span></h2>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">You have new Assignment</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">Please refer the folowing details and add submissions before the Deadline&nbsp;</p>\n" +
+            "<p>&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">Assignment Details</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Course ID           : " + CourseId + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Assignment          : " + Title + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Description         : " + Description + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Start On            : " + StartDate + "&nbsp;</p>\n" +
+            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">End On              : " + EndDate + "&nbsp;&nbsp;<br /><br /></p>\n" +
+            "<p style=\"text-align: left;\"><a href=\"http://localhost:1234/login\"><button style=\"background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0); background-color: #33bdef; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; border: 1px solid #057fd0; display: inline-block; cursor: pointer; color: #ffffff; font-family: Courier New; font-size: 19px; font-weight: bold; padding: 9px 26px; text-decoration: none;\"> Login Here </button></a></p>\n" +
+            "<p style=\"text-align: left;\">&nbsp;</p>\n" +
+            "<p style=\"text-align: left;\">&nbsp;</p>\n" +
+            "<p>&nbsp;</p>";
+        return AssignmentNotification;
+    };
 };
 
 module.exports = new template();
