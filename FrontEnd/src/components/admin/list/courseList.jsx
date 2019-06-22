@@ -37,7 +37,8 @@ export default class CourseList extends Component{
                     <tr>
                         <th><QueueAnim><div key="1">Course ID</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Course Name</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">Incharge Lecture</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Enrollment Key</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">In Charge Lecture</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Year</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Semester</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Faculty</div></QueueAnim></th>
