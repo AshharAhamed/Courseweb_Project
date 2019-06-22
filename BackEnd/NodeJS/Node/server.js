@@ -10,6 +10,7 @@ const Lecturer = require('./routing/LecturerRouting');
 const Mail = require('./routing/MailRouting');
 const Login = require('./routing/Login');
 const Course = require('./routing/course.server.routes');
+const Student = require('./routing/StudentRouting');
 
 //Import DatabaseConfigurations
 const databaseConfig = require('./configuration/config');
@@ -23,6 +24,7 @@ app.use('/api', require('./authentication/TokenAuthentication'));
 app.use('/api/lecturer', Lecturer);
 app.use('/api/email', Mail);
 app.use('/api/course', Course);
+app.use('/api/student', Student);
 
 
 

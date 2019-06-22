@@ -122,6 +122,47 @@ export default class SISService {
         });
     }
 
+    //------------------------------------------------------Student Functions ---------------------------------------------------------------------------
+    getStudentProfile(studentID) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/student/' + studentID, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    modifyStudent(studentID, data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.put('/student/myProfile/' + studentID, data, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    changeStudentPassword(data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.put('/student/password', data, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    getStudentList() {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/student/', "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
     //-------------------------------------------------------Email Functions ----------------------------------------------------------------------------
     sendEmail(data) {
         return new Promise((resolve, reject) => {

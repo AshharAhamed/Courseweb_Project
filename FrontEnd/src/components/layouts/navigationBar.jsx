@@ -50,12 +50,34 @@ export default class NavigationBar extends Component {
                             </li>
 
                             <li className="nav-item">
+                                <Link className="nav-link" to="/manageStudent">Manage Students</Link>
+                            </li>
+
+                            <li className="nav-item">
                                 <Link className="nav-link" to="/manageCourse">Manage Courses</Link>
                             </li>
                         </ul>
-                    ) : window.location.href = "/login"
+                    ) : (this.state.isLoggedIn && this.state.userType === "Student") ? (
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item active">
+                                <Link className="nav-link" to="/studentHome">Home</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/studentAllCourses">Courses</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="">My Courses</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/studentProfile">My Profile</Link>
+                            </li>
+                        </ul>
+                    ): window.location.href = "/login"
                 }
-                <div style={{marginRight : "10px"}}>
+                <div style={{marginRight: "10px"}}>
                     <Clock/>
                 </div>
                 <div className="form-inline my-2 my-lg-0">

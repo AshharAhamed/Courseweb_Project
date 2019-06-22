@@ -13,7 +13,11 @@ import ManageAdmin from './components/admin/manageAdmin'
 import RegisterAdmin from './components/admin/registerAdmin'
 import ManageCourse from "./components/admin/manageCourse";
 import AddCourse from "./components/admin/addCourse";
+import ManageStudent from './components/admin/manageStudent'
 
+import StudentHome from './components/student/studentDashboard'
+import StudentAllCourses from './components/student/courses'
+import StudentProfile from './components/student/studentProfile'
 
 class App extends Component {
     constructor(props) {
@@ -41,6 +45,10 @@ class App extends Component {
                     <Route exact path="/registerAdmin" component={RegisterAdmin}/>
                     <Route exact path="/manageCourse" component = {ManageCourse}/>
                     <Route exact path="/addCourse" component = {AddCourse}/>
+
+                    <Route exact path="/studentHome" component = {StudentHome}/>
+                    <Route exact path="/studentAllCourses" component = {StudentAllCourses}/>
+                    <Route exact path="/studentProfile" component = {StudentProfile}/>
 
                 </div>
             </Router>
