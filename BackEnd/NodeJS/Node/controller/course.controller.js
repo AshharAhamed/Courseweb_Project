@@ -27,7 +27,7 @@ const CourseController = function () {
                 if (course === null)
                     resolve({status: 404, message: 'Course not found'});
                 else
-                    resolve({status: 200, message: "Staff Member of Staff ID '" + staffID + "' Successfully Deleted"});
+                    resolve({status: 200, message: "Course ID '" + CourseID + "' Successfully updated"});
             }).catch(err =>{
                 reject({status: 500, err});
             })
@@ -79,6 +79,22 @@ const CourseController = function () {
                 reject({status: 500, err});
             })
         })
+    }
+
+    this.updateCourseForNoticfication = (CourseID ,data) =>{
+        return new Promise((resolve,reject) =>{
+            courseModel.find(({CourseId : CourseID})).then((course) =>{
+                if (course === null)
+                    resolve({status: 404, message: 'Course not found'});
+                else{
+                    course.AcceptByLectureFlag = 1
+                    resolve({status: 200, message: "Course ID '" + CourseID + "' Notification Successfully updated"});
+                }
+
+            }).catch(err =>{
+                reject({status: 500, err});
+            })
+        });
     }
 }
 
