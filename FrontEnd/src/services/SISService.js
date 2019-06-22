@@ -233,4 +233,14 @@ export default class SISService {
             })
         })
     }
+
+    addNewAssignment(data){
+        return new Promise((resolve, reject) => {
+            this.apiService.post('/assignment/', data, "Node").then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
 }

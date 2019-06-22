@@ -33,7 +33,9 @@ export default class AddCourse extends Component {
             staffId: '',
             faculty: '',
             gender:'' ,
-            userName: ''
+            userName: '',
+
+            courseForMail :{}
         };
         this.courseService = new CourseService();
         this.SISService = new SISService();
@@ -84,6 +86,7 @@ export default class AddCourse extends Component {
 
     onSubmit(e){
         e.preventDefault();
+        this.loadUserData(this.state.InchargLecture);
         if (this.refs.Faculty) {
             var faculty = this.refs.Faculty.value;
         }
@@ -119,12 +122,17 @@ export default class AddCourse extends Component {
             'CourseAddedDate' : dateInFormate,
             'AcceptByLectureFlag': 0
         }
+
+        this.setState({
+            courseForMail : data
+        })
         console.log(data);
         this.courseService.addCourse(data).then(response =>{
             alert(response.data.message);
             if(response.data.status === 200){
                 let myEmailService = new EmailService();
-                myEmailService.sendMailToLecturer();
+                myEmailService.sendMailToLecturer(this.state.email,this.state.firstName,this.state.staffId,
+                    this.state.courseForMail);
                 window.location.href = "/manageCourse"
             }
         })

@@ -11,7 +11,9 @@ const Mail = require('./routing/MailRouting');
 const Login = require('./routing/Login');
 const Course = require('./routing/course.server.routes');
 const Student = require('./routing/StudentRouting');
-
+const ExamRouter = require('./routing/ExamRouting');
+const AssignmentRouter = require('./routing/AssignmentRouting');
+const CosEnrollRouter = require('./routing/CosEnrollRouting');
 //Import DatabaseConfigurations
 const databaseConfig = require('./configuration/config');
 
@@ -26,6 +28,9 @@ app.use('/api/email', Mail);
 app.use('/api/course', Course);
 app.use('/api/student', Student);
 app.use('/register/student', Student);
+app.use('/api/exam', ExamRouter);
+app.use('/api/assignment', AssignmentRouter);
+app.use('/api/cosenroll', CosEnrollRouter);
 
 
 

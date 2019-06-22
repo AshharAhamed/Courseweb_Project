@@ -26,7 +26,7 @@ const MailService = function () {
                 }else if(messageType === "Password Reset"){
                     message = Template.getPasswordResetSuccessful(recipientName, data.Username, data.Password)
                 }else if(messageType === "Course Added"){
-                    message = Template.getCourseAddedSuccessful(recipientName, data.Username, data.Password)
+                    message = Template.getCourseAddedSuccessful(recipientName, data.Username, data)
                 }else if(messageType === "New Examination"){
                     message = Template.getExamNotificationSuccessful(data.CourseId, data.Title, data.Type, data.TotalMarks, data.PerFinalMark, data.Date, data.Duration)
                 }else if(messageType === "New Assignment"){
