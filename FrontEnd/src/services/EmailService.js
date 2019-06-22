@@ -33,7 +33,7 @@ export default class EmailService {
     sendMailToLecturer(recepient,firstName, userName,course){
         this.SISService.sendEmail({
             'recepient': recepient,
-            'firstName':firstName,
+            'recepientName':firstName,
             'subject': 'Course Added To You',
             'messageType' : 'Course Added',
             'Username' : userName,
