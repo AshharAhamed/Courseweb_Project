@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import OneAdminMember from "./oneAdmin"
+import OneStudent from "./oneStudent"
 import SISService from '../../../services/SISService'
 import QueueAnim from "rc-queue-anim";
 
@@ -23,7 +23,7 @@ export default class StudentList extends Component {
 
     tabRow() {
         return this.state.students.map(function (object, i) {
-            return <OneAdminMember obj={object} key={i}/>;
+            return <OneStudent obj={object} key={i}/>;
         });
     }
 
@@ -36,7 +36,10 @@ export default class StudentList extends Component {
                     <tr>
                         <th><QueueAnim><div key="1">Student ID</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Email</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">Action</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Mobile</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">NIC</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Faculty</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Gender</div></QueueAnim></th>
                     </tr>
                     </thead>
                     <tbody>

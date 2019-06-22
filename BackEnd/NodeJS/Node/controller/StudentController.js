@@ -1,7 +1,7 @@
 const StudentModel = require('../models/Student');
 const CourseModel = require('../models/course.model.schema');
 const md5 = require('md5');
-
+const MailService = require('../services/MailService');
 
 var StudentController = function () {
 
@@ -43,6 +43,8 @@ var StudentController = function () {
                     student.Password = md5(data.NIC);
                     student.save().then(student => {
                         resolve({status: 200, message: 'Student Added Successfully'});
+                        MailService.sendMail(student.Email, student.FirstName, "Registration", "Lecturer Registration", { "Username" : student.SID,
+                            "Password" : student.NIC})
                     }).catch(err => {
                         reject({status: 500, message: err})
                     });
@@ -125,6 +127,25 @@ var StudentController = function () {
                     })
                 } else
                     resolve({status: 500, message: 'Invalid Password !'});
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
+
+    this.resetPassword = (studentID) => {
+        return new Promise((resolve, reject) => {
+            StudentModel.find({SID: studentID}).then((student) => {
+                student[0].Password = md5(student[0].NIC);
+                student[0].save().then(() => {
+                    MailService.sendMail(student[0].Email, student[0].FirstName, "Password Reset", "Password Reset", { "Username" : student[0].SID, "Password" : student[0].NIC}).then( data => {
+                        resolve({status: 200, message: 'Password Reset Successfully !'});
+                    }).catch( err => {
+                        reject({status: 500, err});
+                    });
+                }).catch(err => {
+                    reject({status: 500, err});
+                })
             }).catch(err => {
                 reject({status: 500, err});
             })

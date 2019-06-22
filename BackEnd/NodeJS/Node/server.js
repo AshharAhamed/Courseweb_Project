@@ -25,6 +25,7 @@ app.use('/api/lecturer', Lecturer);
 app.use('/api/email', Mail);
 app.use('/api/course', Course);
 app.use('/api/student', Student);
+app.use('/register/student', Student);
 
 
 

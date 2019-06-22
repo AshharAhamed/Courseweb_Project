@@ -24,6 +24,7 @@ class OneStaffMember extends Component {
         });
     }
 
+
     resetPassword() {
         this.SISService.resetPassword({"Username": this.props.obj.StaffID}).then(response => {
             alert(response.data.message);

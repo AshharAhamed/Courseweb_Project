@@ -18,7 +18,6 @@ router.get("/", (req, res) => {
     })
 });
 
-
 router.get("/:SID", (req, res) => {
     StudentController.get(req.params.SID).then((data) => {
         res.json(data)
@@ -53,6 +52,14 @@ router.put("/enrollCourse/:SID", (req, res) => {
 
 router.put("/password", (req, res) => {
     StudentController.changePassword(req.body.Username, req.body.OldPassword, req.body.NewPassword).then((data) => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
+router.patch("/resetPassword/:SID", (req, res) => {
+    StudentController.resetPassword(req.params.SID).then((data) => {
         res.json(data)
     }).catch(err => {
         res.json(err);
