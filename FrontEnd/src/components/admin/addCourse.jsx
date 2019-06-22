@@ -4,6 +4,7 @@ import CourseService from "../../services/CourseService";
 import EmailService from "../../services/EmailService";
 import UserService from "../../services/UserService";
 import SISService from "../../services/SISService";
+import CourseAddValidation from "../../validations/admin/course";
 
 export default class AddCourse extends Component {
     constructor(props) {
@@ -127,6 +128,18 @@ export default class AddCourse extends Component {
             courseForMail : data
         })
         console.log(data);
+       let validateService = new CourseAddValidation(this.state.CourseName,this.state.CourseId,this.state.InchargLecture,this.state.Department)
+       /*if(validateService.validate){
+           this.courseService.addCourse(data).then(response =>{
+               alert(response.data.message);
+               if(response.data.status === 200){
+                   let myEmailService = new EmailService();
+                   myEmailService.sendMailToLecturer(this.state.email,this.state.firstName,this.state.staffId,
+                       this.state.courseForMail);
+                   window.location.href = "/manageCourse"
+               }
+           })
+       }*/
         this.courseService.addCourse(data).then(response =>{
             alert(response.data.message);
             if(response.data.status === 200){

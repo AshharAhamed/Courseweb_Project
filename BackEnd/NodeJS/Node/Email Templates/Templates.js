@@ -62,8 +62,6 @@ const template = function () {
             "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">You have assign to course on "+data.course.CourseAddedDate+". please login to the account and varify it was related you</p>\n" +
             "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">Make sure you don't share your login credentails and change your password once you login&nbsp;</p>\n" +
             "<p>&nbsp;</p>\n" +
-            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 30px;\">Use the following username to login</p>\n" +
-            "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Username : " + Username + "&nbsp;</p>\n" +
             "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Course Name   : " + data.course.CourseName + "&nbsp;&nbsp;<br /><br /></p>\n" +
             "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">CourseId   : " + data.course.CourseId + "&nbsp;&nbsp;<br /><br /></p>\n" +
             "<p style=\"font-family: Georgia; font-size: 15px; padding-left: 60px;\">Enrollment Key   : " + data.course.EnrollmentKey + "&nbsp;&nbsp;<br /><br /></p>\n" +
