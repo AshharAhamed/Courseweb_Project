@@ -34,6 +34,14 @@ export default class NavigationBar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/lecturerProfile">My Profile</Link>
                             </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/addExamItems">Add Exams & Assignments</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/manageExamItems">Manage Exams & Assignments</Link>
+                            </li>
                         </ul>
                     ) : (this.state.isLoggedIn && this.state.userType === "Admin") ? (
                         <ul className="navbar-nav mr-auto">
