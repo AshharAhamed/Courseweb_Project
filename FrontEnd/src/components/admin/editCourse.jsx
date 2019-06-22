@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import CourseService from "../../services/CourseService";
-
+import QueueAnim from "rc-queue-anim";
 
 export default class EditCourse extends Component {
     constructor(props) {
@@ -30,7 +30,7 @@ export default class EditCourse extends Component {
     oldDataLoad() {
         console.log(this.props.match.params.id);
         this.courseService.getOneCourse(this.props.match.params.id).then(response =>{
-            console.log(response);
+            console.log(response.data.data.Faculty);
             this.setState({
                 CourseName: response.data.data.CourseName,
                 InchargLecture : response.data.data.InchargLecture,
@@ -42,7 +42,6 @@ export default class EditCourse extends Component {
                 Department: response.data.data.Department,
                 CourseAddedDate: response.data.data.CourseAddedDate,
                 AcceptByLectureFlag: response.data.data.AcceptByLectureFlag,
-
                 oldCourseId :response.data.data.CourseId
             });
         }).catch(err =>{
@@ -98,7 +97,7 @@ export default class EditCourse extends Component {
             'Department': this.state.Department,
             'CourseAddedDate' : dateInFormate,
             'AcceptByLectureFlag': 0
-        }
+        };
         console.log("modified data *****************");
         console.log(data);
 
@@ -141,37 +140,40 @@ export default class EditCourse extends Component {
                     </ul>
                 </div>
 
+                <QueueAnim>
+                <div key="1">
                 <form className="contact100-form validate-form" onSubmit={this.onSubmit}>
 				<span className="contact100-form-title">
 					Edit {this.state.CourseName} Course
 				</span>
 
-                    <div className="wrap-input100 validate-input" data-validate="Course ID is required">
+                    <div  className="wrap-input100 validate-input" data-validate="Course ID is required">
                         <span className="label-input100">Course ID</span>
                         <input className="input100" type="text" value={this.state.CourseId} onChange={this.onChange}
                                name="CourseId" placeholder="SE3020/CS2020" required={true}/>
                         <span className="focus-input100"/>
                     </div>
 
-                    <div className="wrap-input100 validate-input" data-validate="Course ID is required">
+                    <div  className="wrap-input100 validate-input" data-validate="Course ID is required">
                         <span className="label-input100">Course Name</span>
                         <input className="input100" type="text" value={this.state.CourseName} onChange={this.onChange}
                                name="CourseName" placeholder="Software Architecture" required={true}/>
                         <span className="focus-input100"/>
                     </div>
 
-                    <div className="wrap-input100 validate-input" data-validate="Incharg Lecture is required">
+                    <div  className="wrap-input100 validate-input" data-validate="Incharg Lecture is required">
                         <span className="label-input100">Incharg Lecture</span>
                         <input className="input100" type="text" value={this.state.InchargLecture} onChange={this.onChange}
                                name="InchargLecture" placeholder="Paul" required={true}/>
                         <span className="focus-input100"/>
                     </div>
 
-                    <div className="wrap-input100 input100-select">
+
+                    <div  className="wrap-input100 input100-select">
                         <span className="label-input100">Select Faculty</span>
                         <div>
-                            <select className="selection-2" name="faculty" ref="Faculty" value={this.state.Faculty}
-                                    onChange={this.onChange}>
+                            <select className="selection-2" name="Faculty" ref="Faculty"
+                                    value={this.state.Faculty} onChange={this.onChange}>
                                 <option value="Faculty of Computing">Faculty of Computing</option>
                                 <option value="Faculty of Business">Faculty of Business</option>
                                 <option value="Faculty of Engineering">Faculty of Engineering</option>
@@ -180,10 +182,11 @@ export default class EditCourse extends Component {
                         <span className="focus-input100"/>
                     </div>
 
+
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Year</span>
                         <div>
-                            <select className="selection-2" name="year" ref="Year" value={this.state.Year}
+                            <select className="selection-2" name="year" ref="Year"
                                     onChange={this.onChange}>
                                 <option value="1">1st year</option>
                                 <option value="2">2nd year</option>
@@ -197,7 +200,7 @@ export default class EditCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Semester</span>
                         <div>
-                            <select className="selection-2" name="semester" ref="Semester" value={this.state.Semester}
+                            <select className="selection-2" name="Semester" ref="Semester" value={this.state.Semester}
                                     onChange={this.onChange}>
                                 <option value="1">1st Semester</option>
                                 <option value="2">2nd Semester</option>
@@ -213,7 +216,6 @@ export default class EditCourse extends Component {
                                name="Department" placeholder="SE/IT/CS" required={true}/>
                         <span className="focus-input100"/>
                     </div>
-
                     <div className="container-contact100-form-btn">
                         <div className="wrap-contact100-form-btn">
                             <div className="contact100-form-bgbtn"/>
@@ -233,6 +235,8 @@ export default class EditCourse extends Component {
                         </div>
                     </div>
                 </form>
+                </div>
+                </QueueAnim>
             </div>
         </div>;
     }

@@ -13,9 +13,13 @@ import ManageAdmin from './components/admin/manageAdmin'
 import RegisterAdmin from './components/admin/registerAdmin'
 import ManageCourse from "./components/admin/manageCourse";
 import AddCourse from "./components/admin/addCourse";
+import ManageStudent from './components/admin/manageStudent'
 import EditCourse from "./components/admin/editCourse";
 import LecturerNotification from "./components/lecturer/lecturerNotification";
 
+import StudentHome from './components/student/studentDashboard'
+import StudentAllCourses from './components/student/courses'
+import StudentProfile from './components/student/studentProfile'
 
 class App extends Component {
     constructor(props) {
@@ -23,6 +27,7 @@ class App extends Component {
         this.userService = new UserService();
         this.state = {
             isLoggedIn: this.userService.isLoggedIn,
+            userType: this.userService.Type
         };
     }
 
@@ -30,12 +35,13 @@ class App extends Component {
         return (
             <Router>
                 <div>
+
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/registerStudent" component={RegisterStudent}/>
+
                     <Route exact path="/lecturerHome" component={LecturerHome}/>
                     <Route exact path="/lecturerProfile" component={LecturerProfile}/>
                     <Route exact path="/lecturerNotification" component ={LecturerNotification}/>
-
 
                     <Route exact path="/adminHome" component={AdminHome}/>
                     <Route exact path="/manageStaff" component={ManageStaff}/>
@@ -44,8 +50,12 @@ class App extends Component {
                     <Route exact path="/registerAdmin" component={RegisterAdmin}/>
                     <Route exact path="/manageCourse" component = {ManageCourse}/>
                     <Route exact path="/addCourse" component = {AddCourse}/>
+                    <Route exact path="/manageStudent" component = {ManageStudent}/>
                     <Route exact path="/editCourse/:id" component ={EditCourse}/>
 
+                    <Route exact path="/studentHome" component = {StudentHome}/>
+                    <Route exact path="/studentAllCourses" component = {StudentAllCourses}/>
+                    <Route exact path="/studentProfile" component = {StudentProfile}/>
 
                 </div>
             </Router>

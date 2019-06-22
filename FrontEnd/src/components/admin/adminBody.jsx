@@ -28,7 +28,7 @@ export default class AdminBody extends Component {
                         <div className="imageContainer">
                         <img src={ require('../../images/i3.jpg')} width="1500" height="700" style={{ display: "block", marginleft: "auto", marginRight: "auto"}}/>
                         <div className="centeredImageText">
-                            <p className="footer-center" style={{ color: "black", fontSize: "20px"}}><b>Quality Education Wherever You Are</b><br/>In just 25 years, CQUniversity has achieved amazing feats and emerged as one of Australia's great universities.</p>
+                            <p className="footer-center" style={{ color: "black", fontSize: "20px"}}><b>Quality Education Wherever You Are</b><br/>In just 25 years, Wood Creak University has achieved amazing feats and emerged as one of Australia's great universities.</p>
                         </div>
                         </div>
                     </div>

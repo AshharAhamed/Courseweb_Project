@@ -1,4 +1,5 @@
 const LecturerModel = require('../models/Lecturer');
+const StudentModel = require('../models/Student');
 const jwt = require('jsonwebtoken');
 const config = require('../authentication/config');
 const md5 = require('md5');
@@ -26,31 +27,50 @@ const UserLogin = function () {
                         "userName": username,
                         "password": password
                     }).then(response => {
-                        if(response.data.login === "Success"){
-                        var token = jwt.sign({
-                                user: username
-                            },
-                            config.secret, {
-                                expiresIn: 150 * 60
+                        if (response.data.login === "Success") {
+                            var token = jwt.sign({
+                                    user: username
+                                },
+                                config.secret, {
+                                    expiresIn: 150 * 60
+                                });
+                            resolve({
+                                login: 'Success',
+                                Username: username,
+                                Type: 'Admin',
+                                Token: token,
                             });
-                        resolve({
-                            login: 'Success',
-                            Username: username,
-                            Type: 'Admin',
-                            Token: token,
-                        });
-                        }else{
-                            reject(response.data)
+                        } else if (response.data.login === "Fail") {
+                            StudentModel.findOne({SID: username}).then(student => {
+                                if (student != null && student.Password.toString() === md5(password)) {
+                                    var token = jwt.sign({
+                                            user: username
+                                        },
+                                        config.secret, {
+                                            expiresIn: 150 * 60
+                                        });
+                                    resolve({
+                                        login: 'Success',
+                                        Username: student.SID,
+                                        Type: 'Student',
+                                        Token: token,
+                                    });
+                                } else {
+                                    reject(response.data)
+                                }
+                            }).catch(err => {
+                                reject({
+                                    "Type": "",
+                                    "Username": "",
+                                    "login": "Fail"
+                                });
+                            });
                         }
-                    }).catch(err => {
-                        reject({status: 500, err});
-                    });
+                    })
                 }
-            }).catch(err => {
-                reject({status: 500, err});
-            });
+            })
         })
     };
-};
+}
 
 module.exports = new UserLogin();

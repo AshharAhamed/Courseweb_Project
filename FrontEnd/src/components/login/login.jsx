@@ -39,6 +39,7 @@ export default class LoginContainer extends Component {
 					Log In!
 				</span>
 
+
                     <div className="wrap-input100 validate-input" data-validate="Name is required">
                         <span className="label-input100">Username</span>
                         <input className="input100" type="text" required={true} value={this.state.Username}

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import SISService from '../../../services/SISService'
 import Ripples from "react-ripples";
 
-class OneStaffMember extends Component {
+class OneAdminMember extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,8 +15,8 @@ class OneStaffMember extends Component {
         this.resetPassword = this.resetPassword.bind(this);
     }
 
-    delete() {
-        this.SISService.deleteStaffMember(this.props.obj.StaffID).then(response => {
+    resetPassword() {
+        this.SISService.resetStudentPassword(this.props.obj.SID).then(response => {
             alert(response.data.message);
             window.location.reload();
         }).catch(function (error) {
@@ -24,37 +24,35 @@ class OneStaffMember extends Component {
         });
     }
 
-
-    resetPassword() {
-        this.SISService.resetPassword({"Username": this.props.obj.StaffID}).then(response => {
-            alert(response.data.message);
+    delete() {
+        this.SISService.deleteAdminMember(this.props.obj.userName).then(response => {
+            alert(response.data);
             window.location.reload();
-        }).catch(function (error) {
-            console.log(error);
-        });
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     render() {
         return (
             <tr>
-                <td>{this.props.obj.StaffID}</td>
-                <td>{this.props.obj.FirstName}</td>
-                <td>{this.props.obj.LastName}</td>
+                <td>{this.props.obj.SID}</td>
                 <td>{this.props.obj.Email}</td>
+                <td>{this.props.obj.Mobile}</td>
+                <td>{this.props.obj.NIC}</td>
                 <td>{this.props.obj.Faculty}</td>
+                <td>{this.props.obj.Gender}</td>
                 <td>
                     <Ripples>
                         <button style={{marginRight: '10px'}} onClick={this.resetPassword}
                                 className="btn btn-warning">Reset Password <i className="fa fa-refresh"/></button>
                     </Ripples>
-                    <Ripples>
-                        <button onClick={this.delete} className="btn btn-danger">Delete <i className="fa fa-trash"/>
-                        </button>
-                    </Ripples>
+                    <button onClick={this.delete} className="btn btn-danger">Delete <i className="fa fa-trash"/>
+                    </button>
                 </td>
             </tr>
         )
     }
 }
 
-export default OneStaffMember;
+export default OneAdminMember;

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import CourseService from "../../services/CourseService";
 
-
 export default class AddCourse extends Component {
     constructor(props) {
         super(props);
@@ -10,6 +9,7 @@ export default class AddCourse extends Component {
             CourseName: '',
             InchargLecture : '',
             CourseId: '',
+            EnrollKey: '',
             NumberOfEnrolledStudent: '',
             Year: '',
             Semester: '',
@@ -64,6 +64,7 @@ export default class AddCourse extends Component {
             'CourseName': this.state.CourseName,
             'CourseId': this.state.CourseId,
             'InchargLecture' : this.state.InchargLecture,
+            'EnrollementKey' : this.state.EnrollKey,
             'NumberOfEnrolledStudent': 0,
             'Year': year,
             'Semester': semester,
@@ -108,6 +109,13 @@ export default class AddCourse extends Component {
                         <span className="label-input100">Course Name</span>
                         <input className="input100" type="text" value={this.state.CourseName} onChange={this.onChange}
                                name="CourseName" placeholder="Software Architecture" required={true}/>
+                        <span className="focus-input100"/>
+                    </div>
+
+                    <div className="wrap-input100 validate-input" data-validate="Course ID is required">
+                        <span className="label-input100">Enrollement Key</span>
+                        <input className="input100" type="text" value={this.state.EnrollKey} onChange={this.onChange}
+                               name="EnrollKey" placeholder="SE@123" required={true}/>
                         <span className="focus-input100"/>
                     </div>
 

@@ -18,6 +18,8 @@ export default class UserService {
                 window.location.href = "/adminHome";
             else if (Type === 'Lecturer')
                 window.location.href = "/lecturerHome";
+            else if (Type === 'Student')
+                window.location.href = "/studentHome"
         } else {
             alert('Invalid Username or Password !');
             localStorage.setItem('LoggedInStatus', false);

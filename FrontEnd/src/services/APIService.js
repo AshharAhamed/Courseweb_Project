@@ -84,6 +84,16 @@ export default class APIService {
         });
     }
 
+    postRegister(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("http://localhost:3000/register/student", data).then(response => {
+                resolve(response);
+            }).catch(err => {
+                resolve(err);
+            });
+        });
+    }
+
     get(url, type) {
         var baseURL = "";
         if (type === "SpringBoot")

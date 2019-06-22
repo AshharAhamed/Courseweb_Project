@@ -31,21 +31,17 @@ export default class CourseList extends Component{
     render(){
         return <div>
             <div className="tableClass">
-                <h4>Courses</h4>
+                <h4>Available Courses</h4>
                 <table className="table">
                     <thead>
                     <tr>
                         <th><QueueAnim><div key="1">Course ID</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Course Name</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">Enrollment Key</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">In Charge Lecture</div></QueueAnim></th>
+                        <th><QueueAnim><div key="1">Incharge Lecture</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Year</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Semester</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Faculty</div></QueueAnim></th>
                         <th><QueueAnim><div key="1">Department</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">Course Added Date</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">Enrolled Students</div></QueueAnim></th>
-                        <th><QueueAnim><div key="1">Lecturer Acceptance</div></QueueAnim></th>
                     </tr>
                     </thead>
                     <tbody>

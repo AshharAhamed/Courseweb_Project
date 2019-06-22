@@ -19,7 +19,6 @@ export default class LecturerProfile extends Component {
             mobile: '',
             dob: '',
             nic: '',
-            staffId: '',
             faculty: '',
             gender: '',
             userName: '',
@@ -55,7 +54,7 @@ export default class LecturerProfile extends Component {
     }
 
     loadUserDetails(username) {
-        this.SISService.getMemberProfile(username).then(response => {
+        this.SISService.getStudentProfile(username).then(response => {
             let oldDate = new Date(response.data.DoB),
                 month = '' + (oldDate.getMonth() + 1),
                 day = '' + oldDate.getDate(),
@@ -72,10 +71,9 @@ export default class LecturerProfile extends Component {
                 mobile: response.data.Mobile,
                 dob: myDate,
                 nic: response.data.NIC,
-                staffId: response.data.StaffID,
                 faculty: response.data.Faculty,
                 gender: response.data.Gender,
-                userName: response.data.Username
+                userName: response.data.SID
             });
         }).catch(error => {
             console.log(error)
@@ -84,14 +82,12 @@ export default class LecturerProfile extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.SISService.modifyMember(this.state.userName, {
+        this.SISService.modifyStudent(this.state.userName, {
             FirstName: this.state.firstName,
             LastName: this.state.lastName,
             Email: this.state.email,
             Mobile: this.state.mobile,
             DoB: this.state.dob,
-            NIC: this.state.nic,
-            StaffID: this.state.staffId,
             Faculty: this.state.faculty,
             Gender: this.state.gender
         }).then(response => {
@@ -102,12 +98,11 @@ export default class LecturerProfile extends Component {
         });
     }
 
-
     onSubmitPassword(e) {
         e.preventDefault();
         let myLecturerPasswordValidation = new AdminRegistrationValidation(null, this.state.newPassword1, this.state.newPassword2);
         if (myLecturerPasswordValidation.isPassword) {
-            this.SISService.changePassword({
+            this.SISService.changeStudentPassword({
                 "Username": this.userService.username,
                 "OldPassword": this.state.oldPassword,
                 "NewPassword": this.state.newPassword1
@@ -117,6 +112,19 @@ export default class LecturerProfile extends Component {
                 console.log(error);
             });
         }
+
+        // let myLecturerPasswordValidation = new AdminRegistrationValidation(null, this.state.newPassword1, this.state.newPassword2);
+        // if (myLecturerPasswordValidation.isPassword) {
+        //     this.SISService.changePassword({
+        //         "Username": this.userService.username,
+        //         "OldPassword": this.state.oldPassword,
+        //         "NewPassword": this.state.newPassword1
+        //     }).then(response => {
+        //         alert(response.data.message);
+        //     }).catch(error => {
+        //         console.log(error);
+        //     });
+        // }
     }
 
     render() {
@@ -173,13 +181,6 @@ export default class LecturerProfile extends Component {
                                 <input className="input100" type="date" required={true} name="dob"
                                        value={this.state.dob}
                                        onChange={this.onChange} placeholder="Enter your Date of Birth"/>
-                                <span className="focus-input100"/>
-                            </div>
-
-                            <div key="7" className="wrap-input100 validate-input" data-validate="Name is required">
-                                <span className="label-input100">Staff ID</span>
-                                <input className="input100" type="text" required={true} value={this.state.staffId}
-                                       onChange={this.onChange} name="staffId" readOnly/>
                                 <span className="focus-input100"/>
                             </div>
 

@@ -32,6 +32,7 @@ class OneCourse extends Component{
             <tr>
                 <td>{this.props.obj.CourseId}</td>
                 <td>{this.props.obj.CourseName}</td>
+                <td>{this.props.obj.EnrollementKey}</td>
                 <td>{this.props.obj.InchargLecture}</td>
                 <td>{this.props.obj.Year}</td>
                 <td>{this.props.obj.Semester}</td>
