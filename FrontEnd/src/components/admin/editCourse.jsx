@@ -198,7 +198,7 @@ export default class EditCourse extends Component {
                     <div className="wrap-input100 input100-select">
                         <span className="label-input100">Select Semester</span>
                         <div>
-                            <select className="selection-2" name="semester" ref="Semester" value={this.state.Semester}
+                            <select className="selection-2" name="Semester" ref="Semester" value={this.state.Semester}
                                     onChange={this.onChange}>
                                 <option value="1">1st Semester</option>
                                 <option value="2">2nd Semester</option>
