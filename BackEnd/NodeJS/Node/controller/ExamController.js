@@ -83,6 +83,19 @@ const ExamController = function () {
         })
     };
 
+    this.getByUser = (CreatedBy) => {
+        return new Promise((resolve, reject) => {
+            ExamModel.find({CreatedBy: CreatedBy}).then((exam) => {
+                if (exam === null)
+                    resolve({status: 404, message: 'Exam not found'});
+                else
+                    resolve(exam);
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
+
     this.sendNotification = (CourseId, data) => {
         return new Promise((resolve, reject) => {
             CosEnrollModel.find({CourseId: CourseId}).then((enrollment) => {

@@ -6,7 +6,7 @@ import UserService from './services/UserService'
 import LecturerHome from './components/lecturer/lecturerDashboard'
 import LecturerProfile from './components/lecturer/profile'
 import AddExam from "./components/lecturer/addExamItems";
-import ManageExam from "./components/lecturer/manageExamItems";
+import ManageExamItems from "./components/lecturer/manageExamItems";
 
 import AdminHome from './components/admin/adminDashboard'
 import ManageStaff from './components/admin/manageStaff'
@@ -61,7 +61,7 @@ class App extends Component {
                     <Route exact path="/studentProfile" component = {StudentProfile}/>
                     <Route exact path="/studentCourses" component = {StudentCourses}/>
                     <Route exact path="/addExamItems" component = {AddExam}/>
-                    <Route exact path="/manageExamItems" component = {ManageExam}/>
+                    <Route exact path="/manageExamItems" component = {ManageExamItems}/>
                 </div>
             </Router>
         );

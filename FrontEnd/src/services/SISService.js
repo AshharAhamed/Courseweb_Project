@@ -243,4 +243,24 @@ export default class SISService {
             })
         })
     }
+
+    deleteExam(courseId, examId){
+        return new Promise((resolve, reject) => {
+            this.apiService.delete('/exam/' + courseId +'/' + examId, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    getLectureExams(CreatedBy) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/exam/FilterByUser/' + CreatedBy, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
 }

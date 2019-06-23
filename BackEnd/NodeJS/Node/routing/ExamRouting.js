@@ -50,4 +50,12 @@ router.get("/FilterByKeys/:CourseId/:ExamId", (req, res) => {
     })
 });
 
+router.get("/FilterByUser/:CreatedBy", (req, res) => {
+    ExamController.getByUser(req.params.CreatedBy).then((data) => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
 module.exports = router;
