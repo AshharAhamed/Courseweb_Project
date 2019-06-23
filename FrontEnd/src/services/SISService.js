@@ -263,4 +263,43 @@ export default class SISService {
             })
         });
     }
+
+    getLectureAssignments(CreatedBy) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/assignment/FilterByUser/' + CreatedBy, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    deleteAssignment(courseId, assignmentId){
+        return new Promise((resolve, reject) => {
+            this.apiService.delete('/assignment/' + courseId +'/' + assignmentId, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+
+    editAssignment(courseId, assignmentId, data) {
+        return new Promise((resolve, reject) => {
+            this.apiService.put('/assignment/' + courseId + '/' + assignmentId, data, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
+    getOneAssignment(CourseId, AssignmentId) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('/assignment/FilterByKeys/' + CourseId + '/' + AssignmentId, "Node").then(response => {
+                resolve(response)
+            }).catch(err => {
+                reject(err)
+            })
+        });
+    }
 }

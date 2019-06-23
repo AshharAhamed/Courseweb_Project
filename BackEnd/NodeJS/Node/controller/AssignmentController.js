@@ -84,6 +84,19 @@ const AssignmentController = function () {
             })
         })
     };
+	
+	this.getByUser = (CreatedBy) => {
+        return new Promise((resolve, reject) => {
+            AssignmentModel.find({CreatedBy: CreatedBy}).then((exam) => {
+                if (exam === null)
+                    resolve({status: 404, message: 'Assignment not found'});
+                else
+                    resolve(exam);
+            }).catch(err => {
+                reject({status: 500, err});
+            })
+        })
+    };
 
     this.sendNotification = (CourseId, data) => {
         return new Promise((resolve, reject) => {
