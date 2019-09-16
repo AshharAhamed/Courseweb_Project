@@ -21,25 +21,6 @@ var StudentController = function () {
                         Faculty: data.Faculty,
                         Gender: data.Gender
                     });
-
-                    // for( i = 0 ; i < data.course.length ; ++i){
-                    //     var courseId = data.course[i];
-                    //     CourseModel.find({CourseId : courseId}).then( course => {
-                    //         console.log(course[0].CourseName);
-                    //         student.course = course[0]
-                    //     })
-                    // }
-                    // for( i = 0 ; i < data.course.length ; ++i){
-                    //     var courseId = data.course[i];
-                    //     CourseModel.findById(courseId).then( course => {
-                    //         // console.log(course[0].CourseName);
-                    //         // student.course = course[0]
-                    //         console.log(course)
-                    //         student.course = course
-                    //         student.save()
-                    //     })
-                    // }
-
                     student.Password = md5(data.NIC);
                     student.save().then(student => {
                         resolve({status: 200, message: 'Student Added Successfully'});
@@ -157,8 +138,8 @@ var StudentController = function () {
                     var index = student.Courses.indexOf(courseID);
                     if (index > -1) {
                         student.Courses.splice(index, 1);
-                    }else{
-                        reject({status: 404, message : "Course Not Found"});
+                    } else {
+                        reject({status: 404, message: "Course Not Found"});
                     }
                     let courseVar = {
                         Courses: student.Courses
@@ -173,7 +154,7 @@ var StudentController = function () {
                     })
                 }
             }).catch(err => {
-                reject({status: 500, message : err});
+                reject({status: 500, message: err});
             })
         })
     };

@@ -1,69 +1,29 @@
 const LecturerModel = require('../models/Lecturer');
 const StudentModel = require('../models/Student');
+const AdminModel = require('../models/Admin');
 const jwt = require('jsonwebtoken');
 const config = require('../authentication/config');
 const md5 = require('md5');
-const axios = require('axios');
 
 const UserLogin = function () {
     this.login = (username, password) => {
         return new Promise((resolve, reject) => {
             LecturerModel.findOne({Username: username}).then(lecturer => {
                 if (lecturer != null && lecturer.Password.toString() === md5(password)) {
-                    var token = jwt.sign({
-                            user: username
-                        },
-                        config.secret, {
-                            expiresIn: 150 * 60
-                        });
-                    resolve({
-                        login: 'Success',
-                        Username: lecturer.Username,
-                        Type: 'Lecturer',
-                        Token: token,
-                    });
+                    resolve(this.sendResponse('Success', lecturer.Username, 'Lecturer'));
                 } else {
-                    axios.post("http://localhost:8080/admins/login", {
-                        "userName": username,
-                        "password": password
-                    }).then(response => {
-                        if (response.data.login === "Success") {
-                            var token = jwt.sign({
-                                    user: username
-                                },
-                                config.secret, {
-                                    expiresIn: 150 * 60
-                                });
-                            resolve({
-                                login: 'Success',
-                                Username: username,
-                                Type: 'Admin',
-                                Token: token,
-                            });
-                        } else if (response.data.login === "Fail") {
+                    AdminModel.findOne({Username: username}).then(admin => {
+                        if (admin != null && admin.Password.toString() === md5(password)) {
+                            resolve(this.sendResponse('Success', admin.Username, 'Admin'));
+                        } else {
                             StudentModel.findOne({SID: username}).then(student => {
                                 if (student != null && student.Password.toString() === md5(password)) {
-                                    var token = jwt.sign({
-                                            user: username
-                                        },
-                                        config.secret, {
-                                            expiresIn: 150 * 60
-                                        });
-                                    resolve({
-                                        login: 'Success',
-                                        Username: student.SID,
-                                        Type: 'Student',
-                                        Token: token,
-                                    });
+                                    resolve(this.sendResponse('Success', student.SID, 'Student'));
                                 } else {
-                                    reject(response.data)
+                                    reject(this.sendResponse("Fail", null, null));
                                 }
                             }).catch(err => {
-                                reject({
-                                    "Type": "",
-                                    "Username": "",
-                                    "login": "Fail"
-                                });
+                                reject(this.sendResponse("Fail", null, null));
                             });
                         }
                     })
@@ -71,6 +31,57 @@ const UserLogin = function () {
             })
         })
     };
-}
+
+    this.generateToken = (Username) => {
+        return jwt.sign({
+                user: Username
+            },
+            config.secret, {
+                expiresIn: "2h"
+            });
+    };
+
+    this.sendResponse = (Status, Username, Type) => {
+        let response;
+        if (Status === 'Success') {
+            if (Type === 'Lecturer') {
+                response = {
+                    login: 'Success',
+                    Username: Username,
+                    Type: 'Lecturer',
+                    Token: this.generateToken(Username),
+                }
+            } else if (Type === 'Student') {
+                response = {
+                    login: 'Success',
+                    Username: Username,
+                    Type: 'Student',
+                    Token: this.generateToken(Username),
+                }
+            } else if (Type === 'Admin') {
+                response = {
+                    login: 'Success',
+                    Username: Username,
+                    Type: 'Admin',
+                    Token: this.generateToken(Username),
+                }
+            } else {
+                response = {
+                    login: 'Fail',
+                    Username: Username,
+                    Type: 'Admin',
+                }
+            }
+        } else if (Status === "Fail") {
+            response = {
+                login: 'Fail',
+                Username: '',
+                Type: '',
+            }
+        }
+        return response;
+    }
+
+};
 
 module.exports = new UserLogin();

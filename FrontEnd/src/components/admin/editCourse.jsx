@@ -10,6 +10,7 @@ export default class EditCourse extends Component {
             CourseName: '',
             InchargLecture : '',
             CourseId: '',
+            Enrollment : '',
             NumberOfEnrolledStudent: '',
             Year: '',
             Semester: '',
@@ -35,6 +36,7 @@ export default class EditCourse extends Component {
                 CourseName: response.data.data.CourseName,
                 InchargLecture : response.data.data.InchargLecture,
                 CourseId: response.data.data.CourseId,
+                Enrollment:  response.data.data.EnrollmentKey,
                 NumberOfEnrolledStudent: response.data.data.NumberOfEnrolledStudent,
                 Year: response.data.data.Year,
                 Semester: response.data.data.Semester,
@@ -82,7 +84,6 @@ export default class EditCourse extends Component {
         if (this.refs.Semester) {
             var semester = this.refs.Semester.value;
         }
-
         var currentDate = new Date();
         var dateInFormate = currentDate.getDay()+"-"+(currentDate.getMonth()+1)+"-"+currentDate.getFullYear();
         var courseId = this.state.oldCourseId;
@@ -91,6 +92,7 @@ export default class EditCourse extends Component {
             'CourseId': this.state.CourseId,
             'InchargLecture' : this.state.InchargLecture,
             'NumberOfEnrolledStudent': 0,
+            'EnrollmentKey' : this.state.Enrollment,
             'Year': year,
             'Semester': semester,
             'Faculty': faculty,
@@ -165,6 +167,13 @@ export default class EditCourse extends Component {
                         <span className="label-input100">Incharg Lecture</span>
                         <input className="input100" type="text" value={this.state.InchargLecture} onChange={this.onChange}
                                name="InchargLecture" placeholder="Paul" required={true}/>
+                        <span className="focus-input100"/>
+                    </div>
+
+                    <div  className="wrap-input100 validate-input" data-validate="Incharg Lecture is required">
+                        <span className="label-input100">Enrollment key</span>
+                        <input className="input100" type="text" value={this.state.Enrollment} onChange={this.onChange}
+                               name="Enrollment" placeholder="Paul" required={true}/>
                         <span className="focus-input100"/>
                     </div>
 
